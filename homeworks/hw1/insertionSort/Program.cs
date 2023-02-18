@@ -34,8 +34,47 @@ namespace InsertionSort
                 Console.Write(array[i] + " ");
             }
         }
+
+        static bool IsSorted(int[] array)
+        {
+            for (var i = 1; i < array.Length; i++)
+            {
+                if (array[i] < array[i - 1])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        static bool Tests()
+        {
+            int[] testArrayOne = { 1, 1, 1, 1 };
+            int[] testArrayTwo = { 4, 3, 2, 1 };
+            int[] testArrayThree = { 5, 6, 4, 3, 10, 2, 7 };
+            InsertionSort(testArrayOne);
+            if (!IsSorted(testArrayOne))
+            {
+                return false;
+            }
+            InsertionSort(testArrayTwo);
+            if (!IsSorted(testArrayTwo))
+            {
+                return false;
+            }
+            InsertionSort(testArrayThree);
+            if (!IsSorted(testArrayThree))
+            {
+                return false;
+            }
+            return true;
+        }
         static void Main(string[] args)
         {
+            if (!Tests())
+            {
+                Console.WriteLine("Tests failed");
+                return;
+            }
             Console.WriteLine("Input amount of elements");
             var arraySize = int.Parse(Console.ReadLine());
             int[] array = new int[arraySize];
