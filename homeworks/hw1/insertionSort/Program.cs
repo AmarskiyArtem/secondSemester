@@ -14,6 +14,7 @@ namespace InsertionSort
             y ^= x;
             x ^= y;
         }
+        
         static void InsertionSort(int[] array)
         {
             for (var i = 1; i < array.Length; i++)
@@ -46,6 +47,7 @@ namespace InsertionSort
             }
             return true;
         }
+        
         static bool Tests()
         {
             int[] testArrayOne = { 1, 1, 1, 1 };
@@ -68,6 +70,7 @@ namespace InsertionSort
             }
             return true;
         }
+        
         static void Main(string[] args)
         {
             if (!Tests())
