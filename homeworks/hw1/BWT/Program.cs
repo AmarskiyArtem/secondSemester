@@ -1,16 +1,12 @@
-﻿using System;
-using System.Text;
-
-namespace BWT
+﻿namespace BWT
 {
     class Programm
     {
-        static string DirectConversion(string originalString, ref int resultStringIndex)
+        static (string, int) DirectConversion(string originalString)
         {
             var shifts = originalString;
             var shiftTable = new string[originalString.Length];
             shiftTable[0] = originalString;
-
             for (var i = 1; i < shiftTable.Length; i++)
             {
                 char firstChar = shifts[0];
@@ -18,52 +14,59 @@ namespace BWT
                 shiftTable[i] = shifts;
             }
             Array.Sort(shiftTable);
-            //Console.WriteLine("{0}", string.Join("\n", shiftTable));
             string result = "";
             for (var i = 0; i < shiftTable.Length; i++)
             {
                 result += shiftTable[i][shiftTable.Length - 1];
             }
-            resultStringIndex = Array.IndexOf(shiftTable, originalString);
-            return result;
+            return (result, Array.IndexOf(shiftTable, originalString));
         }
 
         static string ReverseConversion(string convertedString, int tableIndex)
         {
-            var count = new int[(int)char.MaxValue];
+            var countSortArray = new int[(int)char.MaxValue];
             for (var i = 0; i < convertedString.Length; ++i)
             {
-                ++count[convertedString[i]];
+                ++countSortArray[(int)convertedString[i]];
             }
+
+            // Sort symbols to get first column of original table
+            //countSortArray[i] to first position i-symbol inn 1st column
             var sum = 0;
-            for (var i = 0; i < (int)char.MaxValue; ++i) 
-            { 
-                sum += count[i];
-                count[i] = sum - count[i];
+            for (var i = 0; i < (int)char.MaxValue; ++i)
+            {
+                sum += countSortArray[i];
+                countSortArray[i] = sum - countSortArray[i];
             }
-            var t = new int[convertedString.Length];
+            
+            
+            var nextSymbolsIndex = new int[convertedString.Length];
             for (var i = 0; i < convertedString.Length; ++i)
             {
-                t[count[convertedString[i]]] = i;
-                count[convertedString[i]]++;
+                nextSymbolsIndex[countSortArray[convertedString[i]]] = i;
+                countSortArray[convertedString[i]]++;
             }
-            var j = t[tableIndex];
+
+            var nextSymbol = nextSymbolsIndex[tableIndex];
             var answer = new char[convertedString.Length];
             for (int i = 0; i < convertedString.Length; ++i)
             {
-                answer[i] = convertedString[j];
-                j = t[j];
+                answer[i] = convertedString[nextSymbol];
+                nextSymbol = nextSymbolsIndex[nextSymbol];
             }
 
             return string.Join("", answer);
         }
+
         static void Main(string[] args)
         {
-            var str = "ABACABA";
-            var resultIndex = 0;
-            var newStr = DirectConversion(str, ref resultIndex);
-            //Console.WriteLine(resultIndex);
-            Console.WriteLine(ReverseConversion(newStr, resultIndex));
+            //Console.WriteLine("Input a string");
+            //string? input = Console.ReadLine();
+            var input = "AVACABA";
+            var DirectBWTResult = DirectConversion(input);
+            var stringAfterBWT = DirectBWTResult.Item1;
+            var inputStringIndex = DirectBWTResult.Item2;
+            var reverseResult = ReverseConversion(stringAfterBWT, inputStringIndex);
         }
 
     }
