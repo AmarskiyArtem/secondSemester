@@ -1,4 +1,4 @@
-﻿namespace Insertion.Sort;
+﻿namespace InsertionSort;
 
 using System;
 
