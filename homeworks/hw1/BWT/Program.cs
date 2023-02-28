@@ -2,8 +2,9 @@
 
 using System;
 
-class Programm
+class Program
 {
+
     // Direct BWT, returns string after conversion and index of original string 
     // in shift table
     static (string, int) SlowDirectConversion(string originalString)
@@ -26,11 +27,13 @@ class Programm
         return (result, Array.IndexOf(shiftTable, originalString));
     }
 
+    private const int alphabetSize = 65536;
+
     // Reverse BWT, takes string after BWT and index of original string in sorted shifts table,
     // returns original string
     static string ReverseConversion(string convertedString, int tableIndex)
     {
-        var countSortArray = new int[256];
+        var countSortArray = new int[alphabetSize];
         for (var i = 0; i < convertedString.Length; ++i)
         {
             ++countSortArray[convertedString[i]];
@@ -39,7 +42,7 @@ class Programm
         // Sort symbols to get first column of original table
         //countSortArray[i] to first position i-symbol in 1st column
         var sum = 0;
-        for (var i = 0; i < 256; ++i)
+        for (var i = 0; i < alphabetSize; ++i)
         {
             sum += countSortArray[i];
             countSortArray[i] = sum - countSortArray[i];
@@ -59,10 +62,10 @@ class Programm
             answer[i] = convertedString[nextSymbol];
             nextSymbol = nextSymbolIndex[nextSymbol];
         }
-        return string.Join("", answer);
+        return new string(answer);
     }
 
-    static bool tests()
+    static bool Tests()
     {
         var result = SlowDirectConversion("ABACABA");
         if (result.Item1 != "BCABAAA" || result.Item2 != 2)
@@ -84,22 +87,22 @@ class Programm
 
     static void Main(string[] args)
     {
-        if (!tests())
+        if (!Tests())
         {
             Console.WriteLine("Tests failed");
             return;
         }
 
-        Console.WriteLine("Input a string (only ASCII symbols)");
+        Console.WriteLine("Input a string");
         string? input = Console.ReadLine();
-        while (!(input is String) || !(input.All(char.IsAscii)))
+        while (input == null)
         {
-            Console.WriteLine("Incorrect input.\n Waiting for string (only ASCII symbols)");
+            Console.WriteLine("Incorrect input.\n Waiting for string");
             input = Console.ReadLine();
         }
-        var DirectBWTResult = SlowDirectConversion(input);
-        var stringAfterBWT = DirectBWTResult.Item1;
-        var inputStringIndex = DirectBWTResult.Item2;
+        var directBWTResult = SlowDirectConversion(input);
+        var stringAfterBWT = directBWTResult.Item1;
+        var inputStringIndex = directBWTResult.Item2;
         Console.WriteLine("String after BWT: " + stringAfterBWT);
         var reverseResult = ReverseConversion(stringAfterBWT, inputStringIndex);
         Console.WriteLine("String after reverse BWT: " + reverseResult);
