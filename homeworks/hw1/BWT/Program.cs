@@ -100,9 +100,7 @@ class Program
             Console.WriteLine("Incorrect input.\n Waiting for string");
             input = Console.ReadLine();
         }
-        var directBWTResult = SlowDirectConversion(input);
-        var stringAfterBWT = directBWTResult.Item1;
-        var inputStringIndex = directBWTResult.Item2;
+        var (stringAfterBWT, inputStringIndex) = SlowDirectConversion(input);
         Console.WriteLine("String after BWT: " + stringAfterBWT);
         var reverseResult = ReverseConversion(stringAfterBWT, inputStringIndex);
         Console.WriteLine("String after reverse BWT: " + reverseResult);
