@@ -18,15 +18,29 @@ internal class Trie
     public Trie()
     {
         this.root = new TrieNode();
-        this.Size = 1;
+        this.Size = 0;
+        this.isEmptyStringAdded = false;
     }
 
     private readonly TrieNode root;
+
+    private bool isEmptyStringAdded;
 
     public int Size { get; private set; }
 
     public bool Add(string word)
     {
+        if (word == "")
+        {
+            if (isEmptyStringAdded)
+            {
+                return false;
+            }
+            isEmptyStringAdded = true;
+            this.Size++;
+            return true;
+        }
+
         TrieNode node = this.root;
         foreach (var ch in word)
         {
@@ -41,11 +55,17 @@ internal class Trie
             return false;
         }
         node.IsTerminate = true;
+        this.Size++;
         return true;
     }
 
     public bool Contains(string word)
     {
+        if (word == "")
+        {
+            return isEmptyStringAdded;
+        }
+
         TrieNode node = this.root;
         foreach (var ch in word)
         {
@@ -60,6 +80,16 @@ internal class Trie
 
     public bool Remove(string word)
     {
+        if (word == "")
+        {
+            if (isEmptyStringAdded)
+            {
+                isEmptyStringAdded = false;
+                return true;
+            }
+            return false;
+        }
+
         TrieNode node = this.root;
         foreach (var ch in word)
         {
@@ -72,6 +102,7 @@ internal class Trie
         if (node.IsTerminate)
         {
             node.IsTerminate = false;
+            this.Size--;
             return true;
         }
         return false;
