@@ -42,7 +42,7 @@ internal static class StackCalculator
                     case "/":
                         if (IsZero(secondValue))
                         {
-                            throw new DivideByZeroException();
+                            throw new DivideByZeroException("Attempted to divide by zero.");
                         }
                         stack.Push(firstValue / secondValue);
                         break;
@@ -54,7 +54,18 @@ internal static class StackCalculator
             }
 
         }
-        return stack.Top();
+        var result = stack.Top();
+        stack.Pop();
+        if (!stack.IsEmpty())
+        {
+            throw new ArgumentException("Incorrect math expression.");
+        }
+        return result;
+    }
+
+    public static bool Tests()
+    {
+        return true;
     }
 }
 

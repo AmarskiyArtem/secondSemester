@@ -35,5 +35,10 @@ internal class StackOnLinkedList : IStack
     }
 
     public bool IsEmpty() => this.data.Count == 0;
+
+    public static bool Tests()
+    {
+        return true;
+    }
 }
 
