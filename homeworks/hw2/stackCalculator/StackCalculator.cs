@@ -24,10 +24,19 @@ internal static class StackCalculator
         {
             if (operations.Contains(element))
             {
-                var secondValue = stack.Top();
-                stack.Pop();
-                var firstValue = stack.Top();
-                stack.Pop();
+                double firstValue;
+                double secondValue;
+                try
+                {
+                    secondValue = stack.Top();
+                    stack.Pop();
+                    firstValue = stack.Top();
+                    stack.Pop();
+                }
+                catch
+                {
+                    throw new ArgumentException("Incorrect math expression.");
+                }
                 switch (element)
                 {
                     case "+":
@@ -54,6 +63,7 @@ internal static class StackCalculator
             }
 
         }
+        
         var result = stack.Top();
         stack.Pop();
         if (!stack.IsEmpty())
@@ -65,6 +75,36 @@ internal static class StackCalculator
 
     public static bool Tests()
     {
+        var stack = new StackOnLinkedList();
+        if (CalculatePostfixExpression("5 7 + 3 * 4 /", stack) != 9) 
+        {
+            return false;
+        }
+        try
+        {
+            CalculatePostfixExpression("4 6 + 7 3 - 0 /", stack); //divide by zero test
+            return false;
+        }
+        catch { }
+        try
+        {
+            CalculatePostfixExpression("(5 7 +) 3 * 4 /", stack); //Incorrect symbols test
+            return false;
+        }
+        catch { }
+        try
+        {
+            CalculatePostfixExpression("5 7 8 -", stack);
+            return false;
+        }
+        catch { }
+        try
+        {
+            CalculatePostfixExpression("5 7 8 - + *", stack);
+            return false;
+
+        }
+        catch { }
         return true;
     }
 }

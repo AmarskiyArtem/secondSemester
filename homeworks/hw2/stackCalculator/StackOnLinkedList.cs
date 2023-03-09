@@ -1,5 +1,6 @@
 ﻿namespace StackCalculator;
 
+using System.Collections;
 using System.Collections.Generic;
 
 internal class StackOnLinkedList : IStack
@@ -38,6 +39,33 @@ internal class StackOnLinkedList : IStack
 
     public static bool Tests()
     {
+        var stack = new StackOnLinkedList();
+        try
+        {
+            stack.Pop();
+            return false;
+        }
+        catch { }
+        stack.Push(5);
+        stack.Push(8);
+        stack.Push(4);
+        if (stack.Top() != 4)
+        {
+            return false;
+        }
+        stack.Pop();
+        stack.Pop();
+        if (stack.Top() != 5)
+        {
+            return false;
+        }
+        stack.Pop();
+        try
+        {
+            stack.Top();
+            return false;
+        }
+        catch { }
         return true;
     }
 }
