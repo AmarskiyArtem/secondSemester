@@ -19,12 +19,12 @@ class Programm
         try
         {
             var listStack = new StackOnList();
-            Console.WriteLine("Calculation result using stack on list");
-            Console.WriteLine(StackCalculator.CalculatePostfixExpression(expression, listStack));
+            var result = StackCalculator.CalculatePostfixExpression(expression, listStack);
+            Console.WriteLine("Calculation result using stack on list: " + result);
 
             var linkedListStack = new StackOnLinkedList();
-            Console.WriteLine("Calculation result using stack on linked list");
-            Console.WriteLine(StackCalculator.CalculatePostfixExpression(expression, linkedListStack));
+            result = StackCalculator.CalculatePostfixExpression(expression, linkedListStack);
+            Console.WriteLine("Calculation result using stack on linked list: " + result);
         }
         catch (Exception ex)
         {

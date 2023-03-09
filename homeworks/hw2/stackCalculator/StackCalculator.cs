@@ -2,6 +2,7 @@
 
 using System;
 
+// A static class capable of computing math expressions in postfix notation
 internal static class StackCalculator
 {
     static bool IsCorrectExpression(string expression)
@@ -12,6 +13,7 @@ internal static class StackCalculator
 
     static bool IsZero(double value) => Math.Abs(value) < 0.0001;
 
+    // Accepts the math expression in postfix notation and a stack, returns result of calculation
     public static double CalculatePostfixExpression(string expression, IStack stack)
     {
         if (!IsCorrectExpression(expression))
@@ -61,7 +63,6 @@ internal static class StackCalculator
             {
                 stack.Push(int.Parse(element));
             }
-
         }
         
         var result = stack.Top();
@@ -73,6 +74,7 @@ internal static class StackCalculator
         return result;
     }
 
+    // Tests
     public static bool Tests()
     {
         var stack = new StackOnLinkedList();
@@ -108,4 +110,3 @@ internal static class StackCalculator
         return true;
     }
 }
-

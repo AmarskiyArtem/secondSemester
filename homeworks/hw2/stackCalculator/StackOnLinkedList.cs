@@ -3,8 +3,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
+// Stack implementation using a linked list
 internal class StackOnLinkedList : IStack
 {
+
     public StackOnLinkedList()
     {
         this.data = new LinkedList<double>();
@@ -37,6 +39,7 @@ internal class StackOnLinkedList : IStack
 
     public bool IsEmpty() => this.data.Count == 0;
 
+    // Tests
     public static bool Tests()
     {
         var stack = new StackOnLinkedList();
@@ -69,4 +72,3 @@ internal class StackOnLinkedList : IStack
         return true;
     }
 }
-

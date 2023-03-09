@@ -1,8 +1,10 @@
 ﻿namespace StackCalculator;
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
+// Stack implementation using a list
 internal class StackOnList : IStack
 {
     public StackOnList()
@@ -37,6 +39,7 @@ internal class StackOnList : IStack
 
     public bool IsEmpty() => this.data.Count == 0;
 
+    // Tests
     public static bool Tests()
     {
         var stack = new StackOnList();
@@ -69,4 +72,3 @@ internal class StackOnList : IStack
         return true;
     }
 }
-
