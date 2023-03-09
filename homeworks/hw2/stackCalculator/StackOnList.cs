@@ -10,7 +10,8 @@ internal class StackOnList : IStack
         this.data = new List<double>();
     }
 
-    private List <double> data;
+    private readonly List <double> data;
+
     public void Push(double value)
     {
         this.data.Insert(0, value);
@@ -18,17 +19,22 @@ internal class StackOnList : IStack
 
     public void Pop()
     {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("Stack is empty.");
+        }
         this.data.Remove(this.data[0]);
     }
 
     public double Top()
     {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("Stack is empty.");
+        }
         return this.data[0];
     }
 
-    public bool IsEmpty()
-    {
-        return this.data.Count == 0;
-    }
+    public bool IsEmpty() => this.data.Count == 0;
 }
 
