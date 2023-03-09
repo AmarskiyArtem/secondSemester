@@ -131,5 +131,39 @@ internal class Trie
         }
         return CountWords(node);
     }
+
+    static public bool Tests()
+    {
+        Trie testTrie = new Trie();
+        if (!testTrie.Add("Cat") || testTrie.Size != 1)
+        {
+            return false;
+        }
+        if (!testTrie.Add("Catyy") || testTrie.Size != 2)
+        {
+            return false;
+        }
+        if (!testTrie.Add("CatLand") || testTrie.Size != 3)
+        {
+            return false;
+        }
+        if (!testTrie.Add("SomeAnotherPrefix") || testTrie.Size != 4)
+        {
+            return false;
+        }
+        if (!testTrie.Contains("Catyy") || testTrie.Contains("WordWhichDontExist"))
+        {
+            return false;
+        }
+        if (testTrie.HowManyStartsWithPrefix("Cat") != 3 || testTrie.HowManyStartsWithPrefix("Soma") != 0)
+        {
+            return false;
+        }
+        if (!testTrie.Remove("Cat") || testTrie.Size != 3 || testTrie.Remove("Cat"))
+        {
+            return false;
+        }
+        return testTrie.HowManyStartsWithPrefix("Ca") == 2;
+    }
 }
 

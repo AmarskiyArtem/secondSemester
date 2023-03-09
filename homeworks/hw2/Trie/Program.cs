@@ -12,6 +12,11 @@ static class Prorgam
     }
     static void Main()
     {
+        if (!Trie.Tests())
+        {
+            Console.WriteLine("Tests failed");
+            return;
+        }
         Trie trie = new Trie();
         var isContinue = true;
         PrintActions();
