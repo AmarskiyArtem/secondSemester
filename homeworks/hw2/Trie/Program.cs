@@ -12,7 +12,7 @@ class Prorgam
         trie.Add("Catlaad");
         trie.Add("Catlandy");
         trie.Add("Fuck");
-        Console.WriteLine(trie.HowManyStartsWithPrefix("Cat"));
+        Console.WriteLine(trie.HowManyStartsWithPrefix("Catl"));
         //Console.WriteLine(trie.Contains("LOLOL"));
         //Console.WriteLine(trie.Contains("LOUU"));
         //Console.WriteLine(trie.Remove("LOUU"));
