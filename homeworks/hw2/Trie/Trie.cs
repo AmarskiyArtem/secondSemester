@@ -1,4 +1,4 @@
-﻿namespace Trie;
+﻿namespace TrieHomework;
 
 using System.Collections.Generic;
 
