@@ -7,17 +7,13 @@ using System.Collections.Generic;
 internal class StackOnLinkedList : IStack
 {
 
-    public StackOnLinkedList()
-    {
-        this.data = new LinkedList<double>();
-    }
+    public StackOnLinkedList() 
+        => this.data = new();
 
     private readonly LinkedList<double> data;
 
     public void Push(double value)
-    {
-        this.data.AddFirst(value);
-    }
+        => this.data.AddFirst(value);
 
     public void Pop()
     {
@@ -37,7 +33,8 @@ internal class StackOnLinkedList : IStack
         return this.data.First();
     }
 
-    public bool IsEmpty() => this.data.Count == 0;
+    public bool IsEmpty()
+        => this.data.Count == 0;
 
     // Tests
     public static bool Tests()
@@ -48,7 +45,7 @@ internal class StackOnLinkedList : IStack
             stack.Pop();
             return false;
         }
-        catch { }
+        catch (InvalidOperationException) { }
         stack.Push(5);
         stack.Push(8);
         stack.Push(4);
@@ -68,7 +65,7 @@ internal class StackOnLinkedList : IStack
             stack.Top();
             return false;
         }
-        catch { }
+        catch (InvalidOperationException) { }
         return true;
     }
 }

@@ -1,23 +1,18 @@
 ﻿namespace StackCalculator;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 // Stack implementation using a list
 internal class StackOnList : IStack
 {
-    public StackOnList()
-    {
-        this.data = new List<double>();
-    }
+    public StackOnList() 
+        => this.data = new ();
 
-    private readonly List <double> data;
+    private readonly List<double> data;
 
     public void Push(double value)
-    {
-        this.data.Insert(0, value);
-    }
+        => this.data.Insert(0, value);
 
     public void Pop()
     {
@@ -37,7 +32,8 @@ internal class StackOnList : IStack
         return this.data[0];
     }
 
-    public bool IsEmpty() => this.data.Count == 0;
+    public bool IsEmpty()
+        => this.data.Count == 0;
 
     // Tests
     public static bool Tests()
@@ -48,7 +44,7 @@ internal class StackOnList : IStack
             stack.Pop();
             return false;
         }
-        catch { }
+        catch (InvalidOperationException) { }
         stack.Push(5);
         stack.Push(8);
         stack.Push(4);
@@ -68,7 +64,7 @@ internal class StackOnList : IStack
             stack.Top();
             return false;
         }
-        catch { }
+        catch (InvalidOperationException) { }
         return true;
     }
 }

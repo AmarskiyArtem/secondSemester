@@ -3,7 +3,7 @@
 using System;
 
 // A static class capable of computing math expressions in postfix notation
-internal static class StackCalculator
+internal static class PostfixCalculator
 {
     static bool IsCorrectExpression(string expression)
     {
@@ -35,7 +35,7 @@ internal static class StackCalculator
                     firstValue = stack.Top();
                     stack.Pop();
                 }
-                catch
+                catch (InvalidOperationException)
                 {
                     throw new ArgumentException("Incorrect math expression.");
                 }
@@ -53,7 +53,7 @@ internal static class StackCalculator
                     case "/":
                         if (IsZero(secondValue))
                         {
-                            throw new DivideByZeroException("Attempted to divide by zero.");
+                            throw new DivideByZeroException();
                         }
                         stack.Push(firstValue / secondValue);
                         break;
@@ -64,7 +64,7 @@ internal static class StackCalculator
                 stack.Push(int.Parse(element));
             }
         }
-        
+
         var result = stack.Top();
         stack.Pop();
         if (!stack.IsEmpty())
@@ -78,7 +78,7 @@ internal static class StackCalculator
     public static bool Tests()
     {
         var stack = new StackOnLinkedList();
-        if (CalculatePostfixExpression("5 7 + 3 * 4 /", stack) != 9) 
+        if (CalculatePostfixExpression("5 7 + 3 * 4 /", stack) != 9)
         {
             return false;
         }
@@ -87,26 +87,26 @@ internal static class StackCalculator
             CalculatePostfixExpression("4 6 + 7 3 - 0 /", stack); //divide by zero test
             return false;
         }
-        catch { }
+        catch (DivideByZeroException) { }
         try
         {
             CalculatePostfixExpression("(5 7 +) 3 * 4 /", stack); //Incorrect symbols test
             return false;
         }
-        catch { }
+        catch (ArgumentException) { }
         try
         {
             CalculatePostfixExpression("5 7 8 -", stack);
             return false;
         }
-        catch { }
+        catch (ArgumentException) { }
         try
         {
             CalculatePostfixExpression("5 7 8 - + *", stack);
             return false;
 
         }
-        catch { }
+        catch (ArgumentException) { }
         return true;
     }
 }

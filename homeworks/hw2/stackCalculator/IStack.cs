@@ -1,5 +1,6 @@
 ﻿namespace StackCalculator;
 
+// Classic stack data structure interface
 internal interface IStack
 {
     // Adds an element to the top of the stack
