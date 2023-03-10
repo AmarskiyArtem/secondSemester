@@ -10,6 +10,7 @@ static class Prorgam
             "4 - count how many words with this prefix\n" +
             "5 - find out the number of words in trie\n6 - print actions again");
     }
+
     static void Main()
     {
         if (!Trie.Tests())
