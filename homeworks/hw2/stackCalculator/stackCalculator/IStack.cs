@@ -1,7 +1,7 @@
 ﻿namespace StackCalculator;
 
 // Classic stack data structure interface
-internal interface IStack
+public interface IStack
 {
     // Adds an element to the top of the stack
     public void Push(double value);

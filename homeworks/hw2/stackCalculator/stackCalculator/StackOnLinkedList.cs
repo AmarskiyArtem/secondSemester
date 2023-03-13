@@ -1,10 +1,9 @@
 ﻿namespace StackCalculator;
 
-using System.Collections;
 using System.Collections.Generic;
 
 // Stack implementation using a linked list
-internal class StackOnLinkedList : IStack
+public class StackOnLinkedList : IStack
 {
 
     public StackOnLinkedList() 
