@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 // Stack implementation using a list
-internal class StackOnList : IStack
+public class StackOnList : IStack
 {
     public StackOnList() 
         => this.data = new ();

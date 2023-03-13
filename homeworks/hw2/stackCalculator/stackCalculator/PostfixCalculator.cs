@@ -3,7 +3,7 @@
 using System;
 
 // A static class capable of computing math expressions in postfix notation
-internal static class PostfixCalculator
+public static class PostfixCalculator
 {
     static bool IsCorrectExpression(string expression)
     {
