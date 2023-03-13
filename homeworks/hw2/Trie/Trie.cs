@@ -7,23 +7,14 @@ internal class Trie
 {
     private class TrieNode
     {
-        public TrieNode() 
-        {
-            this.children = new Dictionary<char, TrieNode>();
-            this.IsTerminate = false;
-        }
-        public Dictionary<char, TrieNode> children;
+        public Dictionary<char, TrieNode>? Children { get; set; } = new Dictionary<char, TrieNode>();
+
         public bool IsTerminate { get; set; }
+
+        public int WordsWithSamePrefix { get; set; }
     }
 
-    public Trie()
-    {
-        this.root = new TrieNode();
-        this.Size = 0;
-        this.isEmptyStringAdded = false;
-    }
-
-    private readonly TrieNode root;
+    private readonly TrieNode root = new TrieNode();
 
     private bool isEmptyStringAdded;
 
@@ -43,19 +34,22 @@ internal class Trie
             return true;
         }
 
-        TrieNode node = this.root;
-        foreach (var ch in word)
-        {
-            if (!node.children.ContainsKey(ch))
-            {
-                node.children[ch] = new TrieNode();
-            }
-            node = node.children[ch];
-        }
-        if (node.IsTerminate) 
+        if (Contains(word))
         {
             return false;
         }
+
+        TrieNode node = this.root;
+        foreach (var ch in word)
+        {
+            if (!node.Children.ContainsKey(ch))
+            {
+                node.Children[ch] = new TrieNode();
+            }
+            node.WordsWithSamePrefix++;
+            node = node.Children[ch];
+        }
+        node.WordsWithSamePrefix++;
         node.IsTerminate = true;
         this.Size++;
         return true;
@@ -72,11 +66,11 @@ internal class Trie
         TrieNode node = this.root;
         foreach (var ch in word)
         {
-            if (!node.children.ContainsKey(ch))
+            if (!node.Children.ContainsKey(ch))
             {
                 return false;
             }
-            node = node.children[ch];
+            node = node.Children[ch];
         }
         return node.IsTerminate;
     }
@@ -95,47 +89,40 @@ internal class Trie
             return false;
         }
 
+        if (!Contains(word))
+        {
+            return false;
+        }
+
         TrieNode node = this.root;
         foreach (var ch in word)
         {
-            if (!node.children.ContainsKey(ch))
-            {
-                return false;
-            }
-            node = node.children[ch];
+            node.WordsWithSamePrefix--;
+            node = node.Children[ch];
         }
-        if (node.IsTerminate)
-        {
-            node.IsTerminate = false;
-            this.Size--;
-            return true;
-        }
-        return false;
-    }
+        node.IsTerminate = false;
+        this.Size--;
+        return true;
 
-    private int CountWords(TrieNode node)
-    {
-        var result = Convert.ToInt32(node.IsTerminate);
-        foreach (var key in node.children.Keys)
-        {
-            result += CountWords(node.children[key]);
-        }
-        return result;
     }
 
     // Return how many word added to the trie starts with the passed prefix
     public int HowManyStartsWithPrefix(string prefix)
     {
+        if (prefix == "")
+        {
+            return Convert.ToInt32(isEmptyStringAdded);
+        }
         TrieNode node = this.root;
         foreach (var ch in prefix)
         {
-            if (!node.children.ContainsKey(ch))
+            if (!node.Children.ContainsKey(ch))
             {
                 return 0;
             }
-            node = node.children[ch];
+            node = node.Children[ch];
         }
-        return CountWords(node);
+        return node.WordsWithSamePrefix;
     }
 
     // Tests

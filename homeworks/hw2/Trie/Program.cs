@@ -12,7 +12,7 @@ if (!Trie.Tests())
     Console.WriteLine("Tests failed");
     return;
 }
-Trie trie = new Trie();
+var trie = new Trie();
 var isContinue = true;
 PrintActions();
 while (isContinue)
@@ -52,12 +52,12 @@ while (isContinue)
             {
                 Console.WriteLine("Input a prefix");
                 var prefix = Console.ReadLine();
-                Console.WriteLine(trie.HowManyStartsWithPrefix(prefix) + " words with that prefix");
+                Console.WriteLine($"{trie.HowManyStartsWithPrefix(prefix)} words with that prefix");
                 break;
             }
         case "5":
             {
-                Console.WriteLine(trie.Size + " - total number of words in trie");
+                Console.WriteLine($"{trie.Size} - total number of words in trie");
                 break;
             }
         case "6":
