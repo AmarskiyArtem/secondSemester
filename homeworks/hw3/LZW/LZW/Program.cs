@@ -1,1 +1,3 @@
-﻿Console.WriteLine("Hello, World!");
+﻿using LZW;
+
+Console.WriteLine("Hi LZW");

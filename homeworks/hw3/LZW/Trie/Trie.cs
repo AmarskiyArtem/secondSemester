@@ -55,6 +55,40 @@ public class Trie
         return true;
     }
 
+    public bool Add(char[] sequence)
+    {
+        if (sequence.Length == 0)
+        {
+            if (isEmptyStringAdded)
+            {
+                return false;
+            }
+            isEmptyStringAdded = true;
+            this.Size++;
+            return true;
+        }
+
+        if (Contains(sequence))
+        {
+            return false;
+        }
+
+        TrieNode node = this.root;
+        foreach (var ch in sequence)
+        {
+            if (!node.Children.ContainsKey(ch))
+            {
+                node.Children[ch] = new TrieNode();
+            }
+            node.WordsWithSamePrefix++;
+            node = node.Children[ch];
+        }
+        node.WordsWithSamePrefix++;
+        node.IsTerminate = true;
+        this.Size++;
+        return true;
+    }
+
     // Check if word contatins in the trie
     public bool Contains(string word)
     {
@@ -73,6 +107,11 @@ public class Trie
             node = node.Children[ch];
         }
         return node.IsTerminate;
+    }
+
+    public bool Contains(char[] sequence)
+    {
+        return Contains(new string(sequence));
     }
 
     // Remove element from the trie. Returns true if successful, false if element 
