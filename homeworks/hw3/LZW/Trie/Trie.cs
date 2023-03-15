@@ -124,45 +124,4 @@ public class Trie
         }
         return node.SequencesWithSamePrefix;
     }
-
-    static public bool Tests()
-    {
-        var testTrie = new Trie();
-        byte[] a1 = { (byte)'C', (byte)'a', (byte)'t' };
-        byte[] a2 = { (byte)'C', (byte)'a', (byte)'t', (byte)'t', (byte)'y' };
-        byte[] a3 = { (byte)'C', (byte)'a', (byte)'t', (byte)'L', (byte)'A' };
-        byte[] a4 = { (byte)'S', (byte)'o' };
-        byte[] a5 = { (byte)'C', (byte)'a', (byte)'t', (byte)'O' };
-        byte[] a6 = { (byte)'C', (byte)'a'};
-        if (!testTrie.Add(a1) || testTrie.Size != 1)
-        {
-            return false;
-        }
-        if (!testTrie.Add(a2) || testTrie.Size != 2)
-        {
-            return false;
-        }
-        if (!testTrie.Add(a3) || testTrie.Size != 3)
-        {
-            return false;
-        }
-        if (!testTrie.Add(a4) || testTrie.Size != 4)
-        {
-            return false;
-        }
-        if (!testTrie.Contains(a2) || testTrie.Contains(a5))
-        {
-            return false;
-        }
-        if (testTrie.HowManyStartsWithPrefix(a1) != 3 || testTrie.HowManyStartsWithPrefix(a5) != 0)
-        {
-            return false;
-        }
-        if (!testTrie.Remove(a1) || testTrie.Size != 3 || testTrie.Remove(a1))
-        {
-            return false;
-        }
-        return testTrie.HowManyStartsWithPrefix(a6) == 2;
-    }
-
 }
