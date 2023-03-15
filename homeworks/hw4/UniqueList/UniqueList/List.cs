@@ -43,7 +43,7 @@ public class List
     
     public void Insert(int value, int index)
     {
-        if (index > Size)
+        if (index > Size || index < 0)
         {
             throw new IndexOutOfRangeException();
         }
@@ -67,7 +67,7 @@ public class List
 
     public void ChangeValueByIndex(int value, int index)
     {
-        if (index >= Size)
+        if (index >= Size || index < 0)
         {
             throw new IndexOutOfRangeException();
         }
@@ -82,9 +82,14 @@ public class List
 
     public void Remove(int index) 
     {
-        if (index >= Size)
+        if (index >= Size || index < 0)
         {
             throw new IndexOutOfRangeException();
+        }
+
+        if (index == 0)
+        {
+            Head = Head!.Next;
         }
 
         var currentListElement = Head;
@@ -93,5 +98,6 @@ public class List
             currentListElement = currentListElement!.Next;
         }
         currentListElement!.Next = currentListElement.Next!.Next;
+        Size--;
     }
 }
