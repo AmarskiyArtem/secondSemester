@@ -3,26 +3,29 @@ namespace UniqueListTests;
 
 public class Tests
 {
+    private UniqueListLibrary.List list = new();
+
     [SetUp]
     public void Setup()
     {
+        list = new();
     }
 
     [Test]
-    public void Test1()
+    public void PushToTheHeadTestShouldGiveSameValuesAndRightSize()
     {
-        var list = new UniqueListLibrary.List();
-        list.Push(5);
-        list.Push(4);
-        list.Push(3);
-        list.Push(2);
-        list.Push(1);
-        list.Push(0);
+        for (var i = 5; i >= 0; i--) 
+        {
+            list.Push(i);
+            Assert.That(list.Size, Is.EqualTo(6 - i));
+        }
+
         for (var i = 0; i < 5; i++)
         {
             Assert.That(list.Get(i), Is.EqualTo(i));
-            Assert.That(list.Size, Is.EqualTo(6));
         }
+
+        Assert.That(list.Size, Is.EqualTo(6));
     }
 
     [Test]

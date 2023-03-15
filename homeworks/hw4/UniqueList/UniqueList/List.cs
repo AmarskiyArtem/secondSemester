@@ -64,4 +64,34 @@ public class List
         currentListElement.Next = newElement;
         Size++;
     }
+
+    public void ChangeValueByIndex(int value, int index)
+    {
+        if (index >= Size)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        var currentListElement = Head;
+        for (var i = 0; i < index; i++)
+        {
+            currentListElement = currentListElement!.Next;
+        }
+        currentListElement!.Value = value;
+    }
+
+    public void Remove(int index) 
+    {
+        if (index >= Size)
+        {
+            throw new IndexOutOfRangeException();
+        }
+
+        var currentListElement = Head;
+        for (var i = 0; i < index - 1; i++)
+        {
+            currentListElement = currentListElement!.Next;
+        }
+        currentListElement!.Next = currentListElement.Next!.Next;
+    }
 }
