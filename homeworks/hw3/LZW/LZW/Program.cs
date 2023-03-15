@@ -1,3 +1,4 @@
 ﻿using LZW;
 
-Console.WriteLine("Hi LZW");
+
+Console.WriteLine(TrieLibrary.Trie.Tests());

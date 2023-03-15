@@ -7,11 +7,11 @@ public class Trie
 {
     private class TrieNode
     {
-        public Dictionary<char, TrieNode> Children { get; set; } = new();
+        public Dictionary<byte, TrieNode> Children { get; set; } = new();
 
         public bool IsTerminate { get; set; }
 
-        public int WordsWithSamePrefix { get; set; }
+        public int SequencesWithSamePrefix { get; set; }
     }
 
     private readonly TrieNode root = new();
@@ -20,42 +20,8 @@ public class Trie
 
     public int Size { get; private set; }
 
-    // Add word to trie. Returns false if the word already been added otherwise true
-    public bool Add(string word)
-    {
-        if (word == "")
-        {
-            if (isEmptyStringAdded)
-            {
-                return false;
-            }
-            isEmptyStringAdded = true;
-            this.Size++;
-            return true;
-        }
-
-        if (Contains(word))
-        {
-            return false;
-        }
-
-        TrieNode node = this.root;
-        foreach (var ch in word)
-        {
-            if (!node.Children.ContainsKey(ch))
-            {
-                node.Children[ch] = new TrieNode();
-            }
-            node.WordsWithSamePrefix++;
-            node = node.Children[ch];
-        }
-        node.WordsWithSamePrefix++;
-        node.IsTerminate = true;
-        this.Size++;
-        return true;
-    }
-
-    public bool Add(char[] sequence)
+    // Add sequence to trie. Returns false if the sequence already been added otherwise true
+    public bool Add(byte[] sequence)
     {
         if (sequence.Length == 0)
         {
@@ -74,51 +40,46 @@ public class Trie
         }
 
         TrieNode node = this.root;
-        foreach (var ch in sequence)
+        foreach (var bt in sequence)
         {
-            if (!node.Children.ContainsKey(ch))
+            if (!node.Children.ContainsKey(bt))
             {
-                node.Children[ch] = new TrieNode();
+                node.Children[bt] = new TrieNode();
             }
-            node.WordsWithSamePrefix++;
-            node = node.Children[ch];
+            node.SequencesWithSamePrefix++;
+            node = node.Children[bt];
         }
-        node.WordsWithSamePrefix++;
+        node.SequencesWithSamePrefix++;
         node.IsTerminate = true;
         this.Size++;
         return true;
     }
 
-    // Check if word contatins in the trie
-    public bool Contains(string word)
+    // Check if sequence contatins in the trie
+    public bool Contains(byte[] sequence)
     {
-        if (word == "")
+        if (sequence.Length == 0)
         {
             return isEmptyStringAdded;
         }
 
         TrieNode node = this.root;
-        foreach (var ch in word)
+        foreach (var bt in sequence)
         {
-            if (!node.Children.ContainsKey(ch))
+            if (!node.Children.ContainsKey(bt))
             {
                 return false;
             }
-            node = node.Children[ch];
+            node = node.Children[bt];
         }
         return node.IsTerminate;
     }
 
-    public bool Contains(char[] sequence)
-    {
-        return Contains(new string(sequence));
-    }
-
     // Remove element from the trie. Returns true if successful, false if element 
     // is not contained in the trie
-    public bool Remove(string word)
+    public bool Remove(byte[] sequence)
     {
-        if (word == "")
+        if (sequence.Length == 0)
         {
             if (isEmptyStringAdded)
             {
@@ -128,16 +89,16 @@ public class Trie
             return false;
         }
 
-        if (!Contains(word))
+        if (!Contains(sequence))
         {
             return false;
         }
 
         TrieNode node = this.root;
-        foreach (var ch in word)
+        foreach (var bt in sequence)
         {
-            node.WordsWithSamePrefix--;
-            node = node.Children[ch];
+            node.SequencesWithSamePrefix--;
+            node = node.Children[bt];
         }
         node.IsTerminate = false;
         this.Size--;
@@ -146,21 +107,62 @@ public class Trie
     }
 
     // Return how many word added to the trie starts with the passed prefix
-    public int HowManyStartsWithPrefix(string prefix)
+    public int HowManyStartsWithPrefix(byte[] prefix)
     {
-        if (prefix == "")
+        if (prefix.Length == 0)
         {
             return Convert.ToInt32(isEmptyStringAdded);
         }
         TrieNode node = this.root;
-        foreach (var ch in prefix)
+        foreach (var bt in prefix)
         {
-            if (!node.Children.ContainsKey(ch))
+            if (!node.Children.ContainsKey(bt))
             {
                 return 0;
             }
-            node = node.Children[ch];
+            node = node.Children[bt];
         }
-        return node.WordsWithSamePrefix;
+        return node.SequencesWithSamePrefix;
     }
+
+    static public bool Tests()
+    {
+        var testTrie = new Trie();
+        byte[] a1 = { (byte)'C', (byte)'a', (byte)'t' };
+        byte[] a2 = { (byte)'C', (byte)'a', (byte)'t', (byte)'t', (byte)'y' };
+        byte[] a3 = { (byte)'C', (byte)'a', (byte)'t', (byte)'L', (byte)'A' };
+        byte[] a4 = { (byte)'S', (byte)'o' };
+        byte[] a5 = { (byte)'C', (byte)'a', (byte)'t', (byte)'O' };
+        byte[] a6 = { (byte)'C', (byte)'a'};
+        if (!testTrie.Add(a1) || testTrie.Size != 1)
+        {
+            return false;
+        }
+        if (!testTrie.Add(a2) || testTrie.Size != 2)
+        {
+            return false;
+        }
+        if (!testTrie.Add(a3) || testTrie.Size != 3)
+        {
+            return false;
+        }
+        if (!testTrie.Add(a4) || testTrie.Size != 4)
+        {
+            return false;
+        }
+        if (!testTrie.Contains(a2) || testTrie.Contains(a5))
+        {
+            return false;
+        }
+        if (testTrie.HowManyStartsWithPrefix(a1) != 3 || testTrie.HowManyStartsWithPrefix(a5) != 0)
+        {
+            return false;
+        }
+        if (!testTrie.Remove(a1) || testTrie.Size != 3 || testTrie.Remove(a1))
+        {
+            return false;
+        }
+        return testTrie.HowManyStartsWithPrefix(a6) == 2;
+    }
+
 }
