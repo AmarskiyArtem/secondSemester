@@ -7,14 +7,14 @@ internal class Trie
 {
     private class TrieNode
     {
-        public Dictionary<char, TrieNode>? Children { get; set; } = new Dictionary<char, TrieNode>();
+        public Dictionary<char, TrieNode> Children { get; set; } = new();
 
         public bool IsTerminate { get; set; }
 
         public int WordsWithSamePrefix { get; set; }
     }
 
-    private readonly TrieNode root = new TrieNode();
+    private readonly TrieNode root = new ();
 
     private bool isEmptyStringAdded;
 
@@ -128,7 +128,7 @@ internal class Trie
     // Tests
     static public bool Tests()
     {
-        Trie testTrie = new Trie();
+        Trie testTrie = new();
         if (!testTrie.Add("Cat") || testTrie.Size != 1)
         {
             return false;

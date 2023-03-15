@@ -12,6 +12,7 @@ if (!Trie.Tests())
     Console.WriteLine("Tests failed");
     return;
 }
+
 var trie = new Trie();
 var isContinue = true;
 PrintActions();
