@@ -2,7 +2,7 @@ namespace StackCalculatorTests;
 
 public class PostfixCalculatorTests
 {
-    private StackOnLinkedList stack;
+    private StackOnLinkedList stack = new();
 
     [SetUp]
     public void Setup()
@@ -11,7 +11,7 @@ public class PostfixCalculatorTests
     }
 
     [Test]
-    public void StandartExpessionShouldRightAnswer()
+    public void StandartExpessionShouldGiveRightAnswer()
     {
         var result = PostfixCalculator.CalculatePostfixExpression("5 7 + 3 * 4 /", stack);
         Assert.That(result, Is.EqualTo(9));
