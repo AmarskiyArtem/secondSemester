@@ -2,9 +2,8 @@
 
 public class List
 {
-    private class ListElement
+    protected class ListElement
     {
-
         public ListElement(int value, ListElement? next)
         {
             this.Value = value;
@@ -16,7 +15,7 @@ public class List
 
     public int Size { get; private set; }
 
-    private ListElement? Head;
+    protected ListElement? Head;
 
     public void Push(int value)
     {

@@ -1,6 +1,5 @@
 namespace UniqueListTests;
 
-
 public class ListsTests
 {
     private UniqueListLibrary.List list = new();
@@ -58,17 +57,23 @@ public class ListsTests
     public void RemoveFromHeadShouldChangeHeadPointer()
     {
         list.Remove(0);
-        Assert.That(list.Size, Is.EqualTo(5));
-        Assert.That(list.Get(0), Is.EqualTo(1));
+        Assert.Multiple(() =>
+        {
+            Assert.That(list.Size, Is.EqualTo(5));
+            Assert.That(list.Get(0), Is.EqualTo(1));
+        });
     }
 
     [Test]
     public void RemoveFromTailAndMiddleShouldExpectedReaction()
     {
         list.Remove(1);
-        Assert.That(list.Size, Is.EqualTo(5));
-        Assert.That(list.Get(0), Is.EqualTo(0));
-        Assert.That(list.Get(1), Is.EqualTo(2));
+        Assert.Multiple(() =>
+        {
+            Assert.That(list.Size, Is.EqualTo(5));
+            Assert.That(list.Get(0), Is.EqualTo(0));
+            Assert.That(list.Get(1), Is.EqualTo(2));
+        });
         list.Remove(4);
         Assert.That(list.Get(3), Is.EqualTo(4));
     }
