@@ -1,5 +1,4 @@
-﻿
-namespace UniqueList;
+﻿namespace UniqueListLibrary;
 
 public class ElementAlreadyExistException : Exception 
 {

@@ -1,6 +1,4 @@
-﻿using UniqueListLibrary;
-
-namespace UniqueList;
+﻿namespace UniqueListLibrary;
 
 public class UniqueList : List
 {

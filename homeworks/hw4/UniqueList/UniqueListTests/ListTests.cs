@@ -2,17 +2,13 @@ namespace UniqueListTests;
 
 public class ListsTests
 {
-    private UniqueListLibrary.List list = new();
-
-    [SetUp]
-    public void Setup()
+    private static IEnumerable<TestCaseData> List()
     {
-        list = new();
-        FillList(list);
-
+        yield return new TestCaseData(new UniqueListLibrary.List());
+        yield return new TestCaseData(new UniqueListLibrary.UniqueList());
     }
 
-    private static void FillList(UniqueListLibrary.List list)
+    internal static void FillList(UniqueListLibrary.List list)
     {
         for (var i = 5; i >= 0; i--)
         {
@@ -21,9 +17,10 @@ public class ListsTests
         }
     }
 
-    [Test]
-    public void PushToTheHeadTestShouldGiveSameValuesAndRightSize()
+    [TestCaseSource(nameof(List))]
+    public void PushToTheHeadTestShouldGiveSameValuesAndRightSize(UniqueListLibrary.List list)
     {
+        FillList(list);
         for (var i = 0; i < 5; i++)
         {
             Assert.That(list.Get(i), Is.EqualTo(i));
@@ -32,9 +29,10 @@ public class ListsTests
         Assert.That(list.Size, Is.EqualTo(6));
     }
 
-    [Test]
-    public void InsertToHeadTailMiddleShouldRightInsertion()
+    [TestCaseSource(nameof(List))]
+    public void InsertToHeadTailMiddleShouldRightInsertion(UniqueListLibrary.List list)
     {
+        FillList(list);
         list.Insert(10, 2);
         list.Insert(11, 5);
         list.Insert(12, 0);
@@ -46,16 +44,18 @@ public class ListsTests
         }
     }
 
-    [Test]
-    public void InsertToInvalidIndexShouldException()
+    [TestCaseSource(nameof(List))]
+    public void InsertToInvalidIndexShouldException(UniqueListLibrary.List list)
     {
+        FillList(list);
         Assert.Throws<IndexOutOfRangeException> (() => list.Insert(0, -1));
         Assert.Throws<IndexOutOfRangeException>(() => list.Insert(0, 7));
     }
 
-    [Test]
-    public void RemoveFromHeadShouldChangeHeadPointer()
+    [TestCaseSource(nameof(List))]
+    public void RemoveFromHeadShouldChangeHeadPointer(UniqueListLibrary.List list)
     {
+        FillList(list);
         list.Remove(0);
         Assert.Multiple(() =>
         {
@@ -64,9 +64,10 @@ public class ListsTests
         });
     }
 
-    [Test]
-    public void RemoveFromTailAndMiddleShouldExpectedReaction()
+    [TestCaseSource(nameof(List))]
+    public void RemoveFromTailAndMiddleShouldExpectedReaction(UniqueListLibrary.List list)
     {
+        FillList(list);
         list.Remove(1);
         Assert.Multiple(() =>
         {
@@ -78,16 +79,18 @@ public class ListsTests
         Assert.That(list.Get(3), Is.EqualTo(4));
     }
 
-    [Test]
-    public void RemoveWithInvalidIndexShouldException()
+    [TestCaseSource(nameof(List))]
+    public void RemoveWithInvalidIndexShouldException(UniqueListLibrary.List list)
     {
+        FillList(list);
         Assert.Throws<IndexOutOfRangeException>(() => list.Remove (-1));
         Assert.Throws<IndexOutOfRangeException>(() => list.Remove(7));
     }
 
-    [Test]
-    public void ChangeValuesInHeadTailMiddleShouldExpectedReaction()
+    [TestCaseSource(nameof(List))]
+    public void ChangeValuesInHeadTailMiddleShouldExpectedReaction(UniqueListLibrary.List list)
     {
+        FillList(list);
         list.ChangeValueByIndex(10, 0);
         list.ChangeValueByIndex(20, 3);
         list.ChangeValueByIndex(30, 5);
@@ -98,9 +101,10 @@ public class ListsTests
         }
     }
 
-    [Test]
-    public void ChangeWithInvalidIndexShouldException()
+    [TestCaseSource(nameof(List))]
+    public void ChangeWithInvalidIndexShouldException(UniqueListLibrary.List list)
     {
+        FillList(list);
         Assert.Throws<IndexOutOfRangeException>(() => list.ChangeValueByIndex(10, -1));
         Assert.Throws<IndexOutOfRangeException>(() => list.ChangeValueByIndex(20, 7));
     }
