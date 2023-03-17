@@ -1,5 +1,6 @@
 ﻿namespace UniqueListTests;
 
+
 public class UniqueListTests
 {
     private UniqueList uniqueList = new();

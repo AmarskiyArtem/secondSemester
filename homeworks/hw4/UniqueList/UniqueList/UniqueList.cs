@@ -1,5 +1,8 @@
 ﻿namespace UniqueListLibrary;
 
+/// <summary>
+/// Linked list which contains only unique elements
+/// </summary>
 public class UniqueList : List
 {
     private bool Contains(int value)
@@ -16,6 +19,8 @@ public class UniqueList : List
         return false;
     }
 
+    /// <inheritdoc/>
+    /// <exception cref="ElementAlreadyExistException"></exception>
     public new void Push(int value)
     {
         if (Contains(value))
@@ -24,7 +29,9 @@ public class UniqueList : List
         }
         base.Push(value);
     }
-    
+
+    /// <inheritdoc/>
+    /// <exception cref="ElementAlreadyExistException"></exception>
     public new void Insert(int value, int index)
     {
         if (Contains(value)) 
@@ -34,6 +41,8 @@ public class UniqueList : List
         base.Insert(value, index);
     }
 
+    /// <inheritdoc/>
+    /// <exception cref="ElementAlreadyExistException"></exception>
     public new void ChangeValueByIndex(int value, int index)
     {
         if (!Contains(value))
