@@ -1,33 +1,17 @@
 ﻿namespace LZW;
 
 using TrieLibrary;
-using System.Collections.Generic;
 
-public class LZWTransform
+public static class LZWTransform
 {
-    private const byte alphabetSize = 65536;
-
-    private static List<byte> FilledList()
+    public static void Compress(string path)
     {
-        var list = new List<byte>();
-        for (byte i = 0; i < alphabetSize; ++i)
+        if (!File.Exists(path))
         {
-            list.Add((byte)i);
+            throw new FileNotFoundException();
         }
-        return list;
+        var data = File.ReadAllBytes(path);
+        Console.WriteLine(String.Join(" ", data));
     }
 
-    public static byte[] Compress(byte[] input)
-    {
-        Trie trie = new();
-        var currentIndex = 0;
-        var output = new List<byte>();
-        
-        while (currentIndex < input.Length)
-        {
-            var bt = input[currentIndex];
-            currentIndex++;
-        }
-        return null;
-    }
 }

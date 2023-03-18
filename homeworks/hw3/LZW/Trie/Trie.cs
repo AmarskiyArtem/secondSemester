@@ -7,23 +7,30 @@ public class Trie
 {
     private class TrieNode
     {
+        public TrieNode(int value) 
+        {
+            Value = value;
+            Children = new();
+        }
         public Dictionary<byte, TrieNode> Children { get; set; } = new();
 
         public bool IsTerminate { get; set; }
 
         public int SequencesWithSamePrefix { get; set; }
+
+        public int Value { get; private set; }
     }
 
-    private readonly TrieNode root = new();
+    private readonly TrieNode root = new(-1);
 
     private bool isEmptyStringAdded;
 
     public int Size { get; private set; }
 
     // Add sequence to trie. Returns false if the sequence already been added otherwise true
-    public bool Add(byte[] sequence)
+    public bool Add(List<byte> sequence, int value)
     {
-        if (sequence.Length == 0)
+        if (sequence.Count == 0)
         {
             if (isEmptyStringAdded)
             {
@@ -39,12 +46,12 @@ public class Trie
             return false;
         }
 
-        TrieNode node = this.root;
+        var node = this.root;
         foreach (var bt in sequence)
         {
             if (!node.Children.ContainsKey(bt))
             {
-                node.Children[bt] = new TrieNode();
+                node.Children[bt] = new TrieNode(value);
             }
             node.SequencesWithSamePrefix++;
             node = node.Children[bt];
@@ -56,14 +63,14 @@ public class Trie
     }
 
     // Check if sequence contatins in the trie
-    public bool Contains(byte[] sequence)
+    public bool Contains(List<byte> sequence)
     {
-        if (sequence.Length == 0)
+        if (sequence.Count == 0)
         {
             return isEmptyStringAdded;
         }
 
-        TrieNode node = this.root;
+        var node = this.root;
         foreach (var bt in sequence)
         {
             if (!node.Children.ContainsKey(bt))
@@ -77,9 +84,9 @@ public class Trie
 
     // Remove element from the trie. Returns true if successful, false if element 
     // is not contained in the trie
-    public bool Remove(byte[] sequence)
+    public bool Remove(List<byte> sequence)
     {
-        if (sequence.Length == 0)
+        if (sequence.Count == 0)
         {
             if (isEmptyStringAdded)
             {
@@ -94,7 +101,7 @@ public class Trie
             return false;
         }
 
-        TrieNode node = this.root;
+        var node = this.root;
         foreach (var bt in sequence)
         {
             node.SequencesWithSamePrefix--;
@@ -107,13 +114,13 @@ public class Trie
     }
 
     // Return how many word added to the trie starts with the passed prefix
-    public int HowManyStartsWithPrefix(byte[] prefix)
+    public int HowManyStartsWithPrefix(List<byte> prefix)
     {
-        if (prefix.Length == 0)
+        if (prefix.Count == 0)
         {
             return Convert.ToInt32(isEmptyStringAdded);
         }
-        TrieNode node = this.root;
+        var node = this.root;
         foreach (var bt in prefix)
         {
             if (!node.Children.ContainsKey(bt))
@@ -123,5 +130,19 @@ public class Trie
             node = node.Children[bt];
         }
         return node.SequencesWithSamePrefix;
+    }
+
+    public int Get(List<byte> sequence)
+    {
+        var node = this.root;
+        foreach (var bt in sequence)
+        {
+            if (!node.Children.ContainsKey(bt))
+            {
+                return -1;
+            }
+            node = node.Children[bt];
+        }
+        return node.Value;
     }
 }
