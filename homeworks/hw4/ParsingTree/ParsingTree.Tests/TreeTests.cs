@@ -1,5 +1,8 @@
 namespace ParsingTreeTests;
 
+/// <summary>
+/// Tests for parsing tree
+/// </summary>
 public class TreeTests
 {
     [Test]

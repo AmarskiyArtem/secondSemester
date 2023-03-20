@@ -1,7 +1,13 @@
 ﻿namespace ParsingTreeLibrary;
 
+/// <summary>
+/// The parsing tree of a mathematical expression
+/// </summary>
 public class ParsingTree
 {
+    /// <param name="expression"> math expression</param>
+    /// <exception cref="ArgumentException">if string is empty or incorrect math expression</exception>
+    /// <exception cref="ArgumentNullException"></exception>
     public ParsingTree(string expression)
     {
         if (expression == null)
@@ -55,9 +61,15 @@ public class ParsingTree
         }
     }
 
+    /// <summary>
+    /// Сalculates the value of an expression in the parse tree
+    /// </summary>
     public double CalculateTree()
         => root.Calculate();
 
+    /// <summary>
+    /// Print tree to the console
+    /// </summary>
     public void PrintTree()
         => root.Print();
 }

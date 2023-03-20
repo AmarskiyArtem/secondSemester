@@ -1,5 +1,8 @@
 ﻿namespace ParsingTreeLibrary;
 
+/// <summary>
+/// Implementation INode interface for numbers
+/// </summary>
 internal class Operand : INode
 {
     public Operand(int value)
@@ -9,11 +12,13 @@ internal class Operand : INode
 
     public int Value { get; }
 
+    /// <inheritdoc/>
     public void Print()
     {
         Console.Write($"{Value} ");
     }
 
+    /// <inheritdoc/>
     public double Calculate()
         => Value;
 }
