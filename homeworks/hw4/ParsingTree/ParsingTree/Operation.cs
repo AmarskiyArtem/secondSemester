@@ -2,11 +2,15 @@
 
 internal abstract class Operation : INode
 {
-    public INode leftChild { get; set; }
+    public INode? LeftChild { get; set; }
 
-    public INode rightChild { get; set; }
+    public INode? RightChild { get; set; }
 
-    public abstract void Print();
+    public virtual void Print()
+    {
+        LeftChild?.Print();
+        RightChild?.Print();
+    }
 
     public abstract double Calculate();
 }
