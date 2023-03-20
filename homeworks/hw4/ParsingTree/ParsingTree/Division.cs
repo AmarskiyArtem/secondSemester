@@ -9,5 +9,12 @@ internal class Division : Operation
     }
 
     public override double Calculate()
-        => LeftChild.Calculate() / RightChild.Calculate();
+    {
+        if (Math.Abs(RightChild.Calculate()) < 0.001)
+        {
+            throw new DivideByZeroException();
+        }
+        return LeftChild.Calculate() / RightChild.Calculate();
+    }
+        
 }

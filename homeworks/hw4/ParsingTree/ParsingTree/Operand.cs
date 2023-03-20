@@ -11,11 +11,9 @@ internal class Operand : INode
 
     public void Print()
     {
-        Console.WriteLine(Value);
+        Console.Write($"{Value} ");
     }
 
     public double Calculate()
-    {
-        return Value;
-    }
+        => Value;
 }
