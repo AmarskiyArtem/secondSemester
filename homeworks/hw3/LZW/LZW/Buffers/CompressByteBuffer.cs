@@ -36,7 +36,7 @@ internal class CompressByteBuffer
     private byte[] GetBitsFromNumber(int number)
     {
         var bits = new byte[CurrentNumberOfBitsPerNumber];
-        for (var i = CurrentNumberOfBitsPerNumber; i >= 0; i--)
+        for (var i = CurrentNumberOfBitsPerNumber - 1; i >= 0; i--)
         {
             bits[i] = (byte)(number % 2);
             number >>= 1;

@@ -22,7 +22,7 @@ internal static class LZWEncoder
         buffer.Data.Add(0);
         var notRecordedSequence = new List<byte>();
         var currentTrieMaxSize = Math.Pow(2, 8);
-        for (var i = 0; i  <= data.Length; i++)
+        for (var i = 0; i < data.Length; i++)
         {
             var newSequence = new List<byte>(notRecordedSequence) { data[i] };
             if (trie.Contains(newSequence))

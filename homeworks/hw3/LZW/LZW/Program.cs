@@ -1,7 +1,3 @@
 ﻿using LZW;
 
-//LZWTransform.Compress(@"D:\games\Riot Games\Riot Client\RiotClientServices.exe");
-
-
-var a = new byte[5];
-LZWEncoder.Encode(a);
+LZWTransform.Compress(@"D:\download\whiteboard-master\whiteboard-master\nbviewer\notebooks\data\harrypotter\Book 1 - The Philosopher's Stone.txt");
