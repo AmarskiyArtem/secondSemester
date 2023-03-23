@@ -21,7 +21,8 @@ internal static class LZWEncoder
         var buffer = new CompressByteBuffer();
         buffer.Data.Add(0);
         var notRecordedSequence = new List<byte>();
-        var currentTrieMaxSize = Math.Pow(2, 8);
+        var currentTrieMaxSize = 512;
+        const int trieMaxSize = 65536;
         for (var i = 0; i < data.Length; i++)
         {
             var newSequence = new List<byte>(notRecordedSequence) { data[i] };
@@ -32,6 +33,12 @@ internal static class LZWEncoder
             else
             {
                 buffer.AddNumberToData(trie.Get(notRecordedSequence));
+                if (trie.Size == trieMaxSize)
+                {
+                    trie = FillTrieBySingleByteSequences();
+                    currentTrieMaxSize = 512;
+                    buffer.CurrentNumberOfBitsPerNumber = 9;
+                }
                 if (trie.Size == currentTrieMaxSize)
                 {
                     buffer.CurrentNumberOfBitsPerNumber++;

@@ -15,7 +15,7 @@ public static class LZWTransform
         var newPath = path + ".zipped";
         File.Create(newPath).Close();
         File.WriteAllBytes(newPath, compressedData);
-        Console.WriteLine(data.Length/(double)compressedData.Length);
+        Console.WriteLine((double)compressedData.Length/data.Length);
     }
 
 }

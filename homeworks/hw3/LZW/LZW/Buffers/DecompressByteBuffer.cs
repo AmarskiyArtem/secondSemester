@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace LZW.Buffers;
 
-namespace LZW.Buffers
+internal class DecompressByteBuffer
 {
-    internal class DecompressByteBuffer
-    {
-    }
+    public List<int> Numbers { get; private set; } = new();
+
+
 }
