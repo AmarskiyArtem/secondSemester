@@ -11,7 +11,7 @@ public static class LZWTransform
             throw new FileNotFoundException();
         }
         var data = File.ReadAllBytes(path);
-        Console.WriteLine(String.Join(" ", data));
+        var newData = LZWEncoder.Encode(data);
     }
 
 }
