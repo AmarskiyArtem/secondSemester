@@ -81,6 +81,10 @@ internal class LZWDecoder
                 isLastByteAdded = true;
                 amountOfRecords++;
             }
+            else
+            {
+                isLastByteAdded = false;
+            }
         }
         if (!isLastByteAdded)
         {

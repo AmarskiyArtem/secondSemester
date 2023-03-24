@@ -9,10 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trie", "Trie\Trie.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BWT", "BWT\BWT.csproj", "{0BF4BA71-A978-4DC3-9B51-3CC841FDF02F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2C88B305-151F-4FBE-9CDA-378E056884E8}"
-	ProjectSection(SolutionItems) = preProject
-		aa.txt = aa.txt
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LZWTests", "LZWTests\LZWTests.csproj", "{42627EE1-F25C-442C-BFB1-9BA57CB532AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +29,10 @@ Global
 		{0BF4BA71-A978-4DC3-9B51-3CC841FDF02F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BF4BA71-A978-4DC3-9B51-3CC841FDF02F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BF4BA71-A978-4DC3-9B51-3CC841FDF02F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42627EE1-F25C-442C-BFB1-9BA57CB532AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42627EE1-F25C-442C-BFB1-9BA57CB532AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42627EE1-F25C-442C-BFB1-9BA57CB532AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42627EE1-F25C-442C-BFB1-9BA57CB532AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

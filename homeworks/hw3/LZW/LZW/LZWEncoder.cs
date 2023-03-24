@@ -49,7 +49,7 @@ internal static class LZWEncoder
             }
         }
         buffer.AddNumberToData(trie.Get(notRecordedSequence));
-        if (buffer.CurrentByte != 0)
+        if (buffer.CurrentNumberOfBitsPerNumber != 0)
         {
             buffer.AddByteToData();
         }
