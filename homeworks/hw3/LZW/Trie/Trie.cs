@@ -21,6 +21,8 @@ public class Trie
         public int Value { get; private set; }
     }
 
+    public Trie() { }
+
     private readonly TrieNode root = new(-1);
 
     private bool isEmptyStringAdded;
@@ -28,7 +30,7 @@ public class Trie
     public int Size { get; private set; }
 
     // Add sequence to trie. Returns false if the sequence already been added otherwise true
-    public bool Add(List<byte> sequence, int value)
+    public bool Add(List<byte> sequence)
     {
         if (sequence.Count == 0)
         {
@@ -51,14 +53,14 @@ public class Trie
         {
             if (!node.Children.ContainsKey(bt))
             {
-                node.Children[bt] = new TrieNode(value);
+                node.Children[bt] = new TrieNode(Size);
+                Size++;
             }
             node.SequencesWithSamePrefix++;
             node = node.Children[bt];
         }
         node.SequencesWithSamePrefix++;
         node.IsTerminate = true;
-        this.Size++;
         return true;
     }
 
@@ -137,10 +139,10 @@ public class Trie
         var node = this.root;
         foreach (var bt in sequence)
         {
-            if (!node.Children.ContainsKey(bt))
-            {
-                return -1;
-            }
+            //if (!node.Children.ContainsKey(bt))
+            //{
+            //    return -1;
+            //}
             node = node.Children[bt];
         }
         return node.Value;
