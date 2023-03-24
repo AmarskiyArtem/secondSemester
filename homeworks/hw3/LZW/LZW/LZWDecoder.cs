@@ -11,21 +11,19 @@ internal class LZWDecoder
         var output = new List<byte>();
         var dictionary = FillDictBySingleByteSequences();
         var numbers = GetNumbers(data);
-        var dicionarySize = 256;
         var dictionaryPoiner = 256;
         List<byte> sequence;
         for (var i = 0; i < numbers.Length; i++)
         {
             var number = numbers[i];
-            if (dicionarySize == maxAmountOfRecords)
+            if (dictionary.Count == maxAmountOfRecords)
             {
                 dictionary = FillDictBySingleByteSequences();
-                dicionarySize = 256;
                 dictionaryPoiner = 256;
             }
             if (dictionary.ContainsKey(number))
             {
-                if (dicionarySize > 256)
+                if (dictionary.Count > 256)
                 {
                     sequence = new List<byte>(dictionary[numbers[i - 1]]) { dictionary[number][0] };
                     while (dictionary.ContainsKey(dictionaryPoiner))
@@ -33,7 +31,7 @@ internal class LZWDecoder
                         dictionaryPoiner++;
                     }
                     dictionary.Add(dictionaryPoiner, sequence);
-                    dictionaryPoiner++;
+                    ++dictionaryPoiner;
                 }
                 output.AddRange(dictionary[number]);
             }
@@ -43,7 +41,6 @@ internal class LZWDecoder
                 dictionary.Add(number, sequence);
                 output.AddRange(sequence);
             }
-            dicionarySize++;
         }
         return output.ToArray();
     }

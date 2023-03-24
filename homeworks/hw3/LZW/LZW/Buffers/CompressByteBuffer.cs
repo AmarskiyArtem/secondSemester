@@ -6,9 +6,9 @@ internal class CompressByteBuffer
 
     public int CurrentNumberOfBitsPerNumber { get; set; } = 9;
 
-    public byte CurrentByte { get; private set; }
+    public byte CurrentByte { get; private set; } = 0;
 
-    private short bitsInCurrentByte = 0;
+    private int bitsInCurrentByte = 0;
 
     private const int BitsInByte = 8;
 
@@ -17,7 +17,7 @@ internal class CompressByteBuffer
         var bits = GetBitsFromNumber(number);
         foreach (var bit in bits)
         {
-            CurrentByte = (byte)(CurrentByte << 1 + bit);
+            CurrentByte = (byte)((CurrentByte << 1) + bit);
             bitsInCurrentByte++;
             if (bitsInCurrentByte == BitsInByte)
             {
@@ -26,7 +26,7 @@ internal class CompressByteBuffer
         }
     }
 
-    private void AddByteToData()
+    public void AddByteToData()
     {
         Data.Add(CurrentByte);
         CurrentByte = 0;

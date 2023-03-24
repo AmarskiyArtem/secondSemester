@@ -10,7 +10,7 @@ internal static class LZWEncoder
         Trie trie = new Trie();
         for (var i = 0; i < 256; i++)
         {
-            trie.Add(new List<byte> { (byte)i }, i);
+            trie.Add(new List<byte> { (byte)i });
         }
         return trie;
     }
@@ -19,7 +19,7 @@ internal static class LZWEncoder
     {
         var trie = FillTrieBySingleByteSequences();
         var buffer = new CompressByteBuffer();
-        buffer.Data.Add(0);
+        //buffer.Data.Add(0);
         var notRecordedSequence = new List<byte>();
         var currentTrieMaxSize = 512;
         const int trieMaxSize = 65536;
@@ -33,6 +33,7 @@ internal static class LZWEncoder
             else
             {
                 buffer.AddNumberToData(trie.Get(notRecordedSequence));
+                trie.Add(newSequence);
                 if (trie.Size == trieMaxSize)
                 {
                     trie = FillTrieBySingleByteSequences();
@@ -44,18 +45,17 @@ internal static class LZWEncoder
                     buffer.CurrentNumberOfBitsPerNumber++;
                     currentTrieMaxSize *= 2;
                 }
-                trie.Add(newSequence, trie.Size);
                 notRecordedSequence.Clear();
                 notRecordedSequence.Add(data[i]);
             }
         }
-
+        buffer.AddNumberToData(trie.Get(notRecordedSequence));
         if (buffer.CurrentByte != 0)
         {
-            buffer.Data[0] = 1;
+            //buffer.Data[0] = 1;
+            //buffer.AddLastByte();
+            buffer.AddByteToData();
         }
-
-        buffer.AddLastByte();
         return buffer.Data.ToArray();
     }
 }

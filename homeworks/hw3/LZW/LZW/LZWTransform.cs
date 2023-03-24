@@ -18,4 +18,16 @@ public static class LZWTransform
         Console.WriteLine((double)compressedData.Length/data.Length);
     }
 
+    public static void Decompress(string path)
+    {
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException();
+        }
+        var compressedData = File.ReadAllBytes(path);
+        var data = LZWDecoder.Decode(compressedData);
+        var newPath = path[0..(path.Length - 11)] + "(1).txt";
+        File.Create(newPath).Close();
+        File.WriteAllBytes(newPath, data);
+    }
 }
