@@ -12,35 +12,37 @@ internal class LZWDecoder
         var dictionary = FillDictBySingleByteSequences();
         var numbers = GetNumbers(data);
         var dictionaryPoiner = 256;
-        List<byte> sequence;
-        for (var i = 0; i < numbers.Length; i++)
+        var dictionarySize = 256;
+        var sequence = new List<byte>();
+        for (var i = 0; i < numbers.Count; i++)
         {
-            var number = numbers[i];
-            if (dictionary.Count == maxAmountOfRecords)
+            if (dictionarySize == maxAmountOfRecords)
             {
                 dictionary = FillDictBySingleByteSequences();
+                dictionarySize = 256;
                 dictionaryPoiner = 256;
             }
-            if (dictionary.ContainsKey(number))
+            if (dictionary.ContainsKey(numbers[i]))
             {
-                if (dictionary.Count > 256)
+                if (dictionarySize != 256)
                 {
-                    sequence = new List<byte>(dictionary[numbers[i - 1]]) { dictionary[number][0] };
                     while (dictionary.ContainsKey(dictionaryPoiner))
                     {
                         dictionaryPoiner++;
                     }
+                    sequence = new List<byte>(dictionary[numbers[i - 1]]) { dictionary[numbers[i]][0] };
                     dictionary.Add(dictionaryPoiner, sequence);
                     ++dictionaryPoiner;
                 }
-                output.AddRange(dictionary[number]);
+                output.AddRange(dictionary[numbers[i]]);
             }
             else
             {
                 sequence = new List<byte>(dictionary[numbers[i - 1]]) { dictionary[numbers[i - 1]][0] };
-                dictionary.Add(number, sequence);
+                dictionary.Add(numbers[i], sequence);
                 output.AddRange(sequence);
             }
+            dictionarySize++;
         }
         return output.ToArray();
     }
@@ -55,13 +57,13 @@ internal class LZWDecoder
         return dictionary;
     }
 
-    private static int[] GetNumbers(byte[] data)
+    private static List<int> GetNumbers(byte[] data)
     {
         var buffer = new DecompressByteBuffer();
         var amountOfRecords = 256;
         var maxAmountOfRecordsWithCurrentBitsPerNumber = 512;
         var isLastByteAdded = false;
-        for (var i = 0; i < data.Length - 1; i++)
+        for (var i = 0; i < data.Length; i++)
         {
             if (amountOfRecords == maxAmountOfRecords)
             {
@@ -84,6 +86,6 @@ internal class LZWDecoder
         {
             buffer.AddNumberToData();
         }
-        return buffer.Data.ToArray();
+        return buffer.Data;
     }
 }

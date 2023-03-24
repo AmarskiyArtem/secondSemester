@@ -26,7 +26,7 @@ public static class LZWTransform
         }
         var compressedData = File.ReadAllBytes(path);
         var data = LZWDecoder.Decode(compressedData);
-        var newPath = path[0..(path.Length - 11)] + "(1).txt";
+        var newPath = path[0..(path.Length - 6)];
         File.Create(newPath).Close();
         File.WriteAllBytes(newPath, data);
     }

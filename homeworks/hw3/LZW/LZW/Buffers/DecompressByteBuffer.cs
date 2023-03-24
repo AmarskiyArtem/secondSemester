@@ -43,7 +43,7 @@ internal class DecompressByteBuffer
     //    }
     //}
 
-    private void AddNumberToData()
+    public void AddNumberToData()
     {
         Data.Add(currentNumber);
         currentNumber = 0;
