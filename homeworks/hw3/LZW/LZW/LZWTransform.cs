@@ -13,7 +13,7 @@ public static class LZWTransform
         var newPath = path + ".zipped";
         File.Create(newPath).Close();
         File.WriteAllBytes(newPath, compressedData);
-        Console.WriteLine((double)compressedData.Length/data.Length);
+        //Console.WriteLine((double)compressedData.Length/data.Length);
     }
 
     public static void Decompress(string path)
