@@ -6,7 +6,7 @@ internal class DecompressByteBuffer
 
     public int BitsPerNumber { get; set; } = 9;
 
-    private int currentNumber = 0;
+    public int currentNumber { get; private set; }
     private int bitsInCurrentNumber = 0;
 
     private const int BitsInByte = 8;
@@ -19,7 +19,7 @@ internal class DecompressByteBuffer
         foreach (var bit in bits)
         {
             currentNumber = (currentNumber << 1) + bit;
-            ++bitsInCurrentNumber; 
+            ++bitsInCurrentNumber;
             if (bitsInCurrentNumber == BitsPerNumber)
             {
                 AddNumberToData();
@@ -29,19 +29,19 @@ internal class DecompressByteBuffer
         return wasAdded;
     }
 
-    public void AddLastByteToData(byte bt)
-    {
-        var bits = GetBitsFromLastByte(bt);
-        foreach (var bit in bits)
-        {
-            currentNumber = (currentNumber << 1) + bit;
-            ++bitsInCurrentNumber;
-            if (bitsInCurrentNumber == BitsPerNumber)
-            {
-                AddNumberToData();
-            }
-        }
-    }
+    //public void AddLastByteToData(byte bt)
+    //{
+    //    var bits = GetBitsFromLastByte(bt);
+    //    foreach (var bit in bits)
+    //    {
+    //        currentNumber = (currentNumber << 1) + bit;
+    //        ++bitsInCurrentNumber;
+    //        if (bitsInCurrentNumber == BitsPerNumber)
+    //        {
+    //            AddNumberToData();
+    //        }
+    //    }
+    //}
 
     private void AddNumberToData()
     {
@@ -53,7 +53,7 @@ internal class DecompressByteBuffer
     private byte[] GetBitsFromByte(byte bt)
     {
         var bits = new byte[BitsInByte];
-        for (var i = BitsInByte - 1; i >= 0; i--) 
+        for (var i = BitsInByte - 1; i >= 0; i--)
         {
             bits[i] = (byte)(bt % 2);
             bt >>= 1;
@@ -61,21 +61,22 @@ internal class DecompressByteBuffer
         return bits;
     }
 
-    private byte[] GetBitsFromLastByte(byte bt)
-    {
-        var bits = new List<byte>();
-        while (bt > 0)
-        {
-            bits.Add((byte)(bt % 2));
-            bt >>= 1;
-        }
+    //    private byte[] GetBitsFromLastByte(byte bt)
+    //    {
+    //        var bits = new List<byte>();
+    //        while (bt > 0)
+    //        {
+    //            bits.Add((byte)(bt % 2));
+    //            bt >>= 1;
+    //        }
 
-        while (bits.Count + bitsInCurrentNumber < BitsPerNumber)
-        {
-            bits.Add(0);
-        }
+    //        while (bits.Count + bitsInCurrentNumber < BitsPerNumber)
+    //        {
+    //            bits.Add(0);
+    //        }
 
-        bits.Reverse();
-        return bits.ToArray();
-    }
+    //        bits.Reverse();
+    //        return bits.ToArray();
+    //    }
+    //}
 }

@@ -60,32 +60,29 @@ internal class LZWDecoder
         var buffer = new DecompressByteBuffer();
         var amountOfRecords = 256;
         var maxAmountOfRecordsWithCurrentBitsPerNumber = 512;
-        for (var i = 1; i < data.Length - 1; i++)
+        var isLastByteAdded = false;
+        for (var i = 0; i < data.Length - 1; i++)
         {
-            var bt = data[i];
-            if (amountOfRecords == maxAmountOfRecordsWithCurrentBitsPerNumber)
-            {
-                maxAmountOfRecordsWithCurrentBitsPerNumber *= 2;
-                buffer.BitsPerNumber++;
-            }
             if (amountOfRecords == maxAmountOfRecords)
             {
                 amountOfRecords = 256;
                 maxAmountOfRecordsWithCurrentBitsPerNumber = 512;
                 buffer.BitsPerNumber = 9;
             }
-            if (buffer.AddByteToData(bt))
+            if (amountOfRecords == maxAmountOfRecordsWithCurrentBitsPerNumber)
             {
+                maxAmountOfRecordsWithCurrentBitsPerNumber *= 2;
+                buffer.BitsPerNumber++;
+            }
+            if (buffer.AddByteToData(data[i]))
+            {
+                isLastByteAdded = true;
                 amountOfRecords++;
             }
         }
-        if (data[0] == 1)
+        if (!isLastByteAdded)
         {
-            buffer.AddLastByteToData(data[^1]);
-        }
-        else
-        {
-            buffer.AddByteToData(data[^1]);
+            buffer.AddNumberToData();
         }
         return buffer.Data.ToArray();
     }
