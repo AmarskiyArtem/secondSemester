@@ -43,9 +43,4 @@ internal class CompressByteBuffer
         }
         return bits;
     }
-
-    public void AddLastByte()
-    {
-        AddByteToData();
-    }
 }

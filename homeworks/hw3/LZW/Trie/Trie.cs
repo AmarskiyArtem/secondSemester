@@ -139,10 +139,6 @@ public class Trie
         var node = this.root;
         foreach (var bt in sequence)
         {
-            //if (!node.Children.ContainsKey(bt))
-            //{
-            //    return -1;
-            //}
             node = node.Children[bt];
         }
         return node.Value;

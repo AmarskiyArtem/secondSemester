@@ -29,20 +29,6 @@ internal class DecompressByteBuffer
         return wasAdded;
     }
 
-    //public void AddLastByteToData(byte bt)
-    //{
-    //    var bits = GetBitsFromLastByte(bt);
-    //    foreach (var bit in bits)
-    //    {
-    //        currentNumber = (currentNumber << 1) + bit;
-    //        ++bitsInCurrentNumber;
-    //        if (bitsInCurrentNumber == BitsPerNumber)
-    //        {
-    //            AddNumberToData();
-    //        }
-    //    }
-    //}
-
     public void AddNumberToData()
     {
         Data.Add(currentNumber);
@@ -60,23 +46,4 @@ internal class DecompressByteBuffer
         }
         return bits;
     }
-
-    //    private byte[] GetBitsFromLastByte(byte bt)
-    //    {
-    //        var bits = new List<byte>();
-    //        while (bt > 0)
-    //        {
-    //            bits.Add((byte)(bt % 2));
-    //            bt >>= 1;
-    //        }
-
-    //        while (bits.Count + bitsInCurrentNumber < BitsPerNumber)
-    //        {
-    //            bits.Add(0);
-    //        }
-
-    //        bits.Reverse();
-    //        return bits.ToArray();
-    //    }
-    //}
 }
