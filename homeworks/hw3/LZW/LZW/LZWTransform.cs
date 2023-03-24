@@ -1,7 +1,5 @@
 ﻿namespace LZW;
 
-using TrieLibrary;
-
 public static class LZWTransform
 {
     public static void Compress(string path)

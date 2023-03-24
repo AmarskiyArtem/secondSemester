@@ -1,10 +1,39 @@
 ﻿using LZW;
 
-//LZWTransform.Decompress(@"D:\download\whiteboard-master\whiteboard-master\nbviewer\notebooks\data\harrypotter\Book 1 - The Philosopher's Stone.txt.zipped");
-//LZWTransform.Compress(@"D:\tests\logo.png");
-
-
-//var data1 = File.ReadAllBytes(@"D:\tests\logo.png.zipped");
-//var data2 = File.ReadAllBytes(@"D:\tests\yy\logo.png.zipped");
-LZWTransform.Decompress(@"D:\tests\rr\Tic_Tac_Toe.exe.zipped");
-//Console.ReadKey();
+if (args.Length < 2)
+{
+    Console.WriteLine("Need more arguments");
+}
+else
+{
+    if (args[1] == "--c")
+    {
+        try
+        {
+            Console.WriteLine("Zipping...");
+            LZWTransform.Compress(args[0]);
+            Console.WriteLine("Successfully");
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("File not found");
+        }
+    }
+    else if (args[1] == "--u")
+    {
+        try
+        {
+            Console.WriteLine("Unzipping...");
+            LZWTransform.Decompress(args[0]);
+            Console.WriteLine("Successfully");
+        }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("File not found");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Incorrect argument");
+    }
+}
