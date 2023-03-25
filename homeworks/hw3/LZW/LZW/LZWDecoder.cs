@@ -69,12 +69,12 @@ internal class LZWDecoder
             {
                 amountOfRecords = 256;
                 maxAmountOfRecordsWithCurrentBitsPerNumber = 512;
-                buffer.BitsPerNumber = 9;
+                buffer.CurrentBitsPerNumber = 9;
             }
             if (amountOfRecords == maxAmountOfRecordsWithCurrentBitsPerNumber)
             {
                 maxAmountOfRecordsWithCurrentBitsPerNumber *= 2;
-                buffer.BitsPerNumber++;
+                buffer.CurrentBitsPerNumber++;
             }
             if (buffer.AddByteToData(data[i]))
             {
@@ -90,7 +90,7 @@ internal class LZWDecoder
         //{
         //    buffer.AddNumberToData();
         //}
-        if (buffer.bitsInCurrentNumber + 8 == buffer.BitsPerNumber)
+        if (buffer.bitsInCurrentNumber + 8 == buffer.CurrentBitsPerNumber)
         {
             buffer.AddByteToData(data[^1]);
         }

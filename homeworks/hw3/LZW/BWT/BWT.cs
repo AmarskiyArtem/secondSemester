@@ -25,16 +25,23 @@ public static class BWT
         return (result, Array.IndexOf(shiftTable, originalString));
     }
 
-    private const int alphabetSize = 65536;
+
+
+    static (byte[], int) FastDirectConversion(byte[] originalData)
+    {
+
+    }
+
+    private const int alphabetSize = 256;
 
     // Reverse BWT, takes string after BWT and index of original string in sorted shifts table,
     // returns original string
-    static string ReverseConversion(string convertedString, int tableIndex)
+    static byte[] ReverseConversion(byte[] convertedBytes, int tableIndex)
     {
         var countSortArray = new int[alphabetSize];
-        for (var i = 0; i < convertedString.Length; ++i)
+        for (var i = 0; i < convertedBytes.Length; ++i)
         {
-            ++countSortArray[convertedString[i]];
+            ++countSortArray[convertedBytes[i]];
         }
 
         // Sort symbols to get first column of original table
@@ -46,20 +53,20 @@ public static class BWT
             countSortArray[i] = sum - countSortArray[i];
         }
 
-        var nextSymbolIndex = new int[convertedString.Length];
+        var nextSymbolIndex = new int[convertedBytes.Length];
         for (var i = 0; i < nextSymbolIndex.Length; ++i)
         {
-            nextSymbolIndex[countSortArray[convertedString[i]]] = i;
-            countSortArray[convertedString[i]]++;
+            nextSymbolIndex[countSortArray[convertedBytes[i]]] = i;
+            countSortArray[convertedBytes[i]]++;
         }
 
         var nextSymbol = nextSymbolIndex[tableIndex];
-        var answer = new char[convertedString.Length];
-        for (int i = 0; i < convertedString.Length; ++i)
+        var answer = new byte[convertedBytes.Length];
+        for (int i = 0; i < convertedBytes.Length; ++i)
         {
-            answer[i] = convertedString[nextSymbol];
+            answer[i] = convertedBytes[nextSymbol];
             nextSymbol = nextSymbolIndex[nextSymbol];
         }
-        return new string(answer);
+        return answer;
     }
 }

@@ -4,7 +4,7 @@ internal class DecompressByteBuffer
 {
     public List<int> Data { get; private set; } = new();
 
-    public int BitsPerNumber { get; set; } = 9;
+    public int CurrentBitsPerNumber { get; set; } = 9;
 
     public int currentNumber { get; private set; }
     public int bitsInCurrentNumber { get; private set; }
@@ -20,7 +20,7 @@ internal class DecompressByteBuffer
         {
             currentNumber = (currentNumber << 1) + bit;
             ++bitsInCurrentNumber;
-            if (bitsInCurrentNumber == BitsPerNumber)
+            if (bitsInCurrentNumber == CurrentBitsPerNumber)
             {
                 AddNumberToData();
                 wasAdded = true;
@@ -54,29 +54,27 @@ internal class DecompressByteBuffer
         {
             currentNumber = (currentNumber << 1) + bit;
             ++bitsInCurrentNumber;
-            if (bitsInCurrentNumber == BitsPerNumber)
+            if (bitsInCurrentNumber == CurrentBitsPerNumber)
             {
                 AddNumberToData();
             }
         }
     }
 
-    private byte[] BitsOfLastByte(byte oneByte)
+    private byte[] BitsOfLastByte(byte bt)
     {
-        var bites = new List<byte>();
-        while (oneByte > 0)
+        var bits = new List<byte>();
+        while (bt > 0)
         {
-            bites.Add((byte)(oneByte % 2));
-            oneByte >>= 1;
+            bits.Add((byte)(bt % 2));
+            bt >>= 1;
         }
-
-        while (bites.Count + bitsInCurrentNumber < BitsInByte)
+        while (bits.Count + bitsInCurrentNumber < BitsInByte)
         {
-            bites.Add(0);
+            bits.Add(0);
         }
-
-        bites.Reverse();
-        return bites.ToArray();
+        bits.Reverse();
+        return bits.ToArray();
     }
 
 }
