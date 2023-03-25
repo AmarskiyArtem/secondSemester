@@ -1,7 +1,13 @@
 ﻿namespace LZW.Buffers;
 
+/// <summary>
+/// Byte buffer for LZWEncoder
+/// </summary>
 internal class CompressByteBuffer
 {
+    /// <summary>
+    /// output
+    /// </summary>
     public List<byte> Data { get; private set; } = new();
 
     public int CurrentNumberOfBitsPerNumber { get; set; } = 9;
@@ -12,6 +18,10 @@ internal class CompressByteBuffer
 
     private const int BitsInByte = 8;
 
+    /// <summary>
+    /// Adds number to output
+    /// </summary>
+    /// <param name="number"></param>
     public void AddNumberToData(int number)
     {
         var bits = GetBitsFromNumber(number);
@@ -26,6 +36,9 @@ internal class CompressByteBuffer
         }
     }
 
+    /// <summary>
+    /// Add current byte to output
+    /// </summary>
     public void AddByteToData()
     {
         Data.Add(CurrentByte);

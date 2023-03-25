@@ -1,7 +1,13 @@
 ﻿namespace LZW.Buffers;
 
+/// <summary>
+/// Byte buffer for LZWDecoder
+/// </summary>
 internal class DecompressByteBuffer
 {
+    /// <summary>
+    /// output
+    /// </summary>
     public List<int> Data { get; private set; } = new();
 
     public int CurrentBitsPerNumber { get; set; } = 9;
@@ -11,7 +17,11 @@ internal class DecompressByteBuffer
 
     private const int BitsInByte = 8;
 
-
+    /// <summary>
+    /// Takes byte, adds to current buffer
+    /// </summary>
+    /// <param name="bt">byte</param>
+    /// <returns>return if new number was added to output</returns>
     public bool AddByteToData(byte bt)
     {
         bool wasAdded = false;
@@ -29,7 +39,7 @@ internal class DecompressByteBuffer
         return wasAdded;
     }
 
-    public void AddNumberToData()
+    private void AddNumberToData()
     {
         Data.Add(CurrentNumber);
         CurrentNumber = 0;
@@ -47,6 +57,10 @@ internal class DecompressByteBuffer
         return bits;
     }
 
+    /// <summary>
+    /// Using for cases if in LZWEncode wasnt enough bits for added (added extra zeros)
+    /// </summary>
+    /// <param name="bt">last byte</param>
     public void AddLastByteToData(byte bt)
     {
         var bits = BitsOfLastByte(bt);

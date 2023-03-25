@@ -3,6 +3,9 @@
 using LZW.Buffers;
 using TrieLibrary;
 
+/// <summary>
+/// Class for LZW (optional with BWT) encode, works with byte[]
+/// </summary>
 internal static class LZWEncoder
 {
     private static Trie FillTrieBySingleByteSequences()
@@ -15,6 +18,12 @@ internal static class LZWEncoder
         return trie;
     }
 
+    /// <summary>
+    /// Encode byte[]
+    /// </summary>
+    /// <param name="data">bytes</param>
+    /// <param name="withBWT">Flag whether to use BWT when compressing</param>
+    /// <returns>Encoded data</returns>
     public static byte[] Encode(byte[] data, bool withBWT)
     {
         

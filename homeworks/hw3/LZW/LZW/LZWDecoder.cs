@@ -2,14 +2,21 @@
 
 namespace LZW;
 
+/// <summary>
+/// Class for LZW (with BWT) decode, works with byte[]
+/// </summary>
 internal class LZWDecoder
 {
     const int maxAmountOfRecords = 65536;
 
+    /// <summary>
+    /// Decodes byte[]
+    /// </summary>
+    /// <param name="data">coded data</param>
+    /// <returns>Decoded data</returns>
     public static byte[] Decode(byte[] data)
     {
         var output = new List<byte>();
-        //var matrixIndex = BitConverter.ToInt32(data[0..4]);
         var dictionary = FillDictBySingleByteSequences();
         var numbers = GetNumbers(data[4..]);
         var dictionaryPoiner = 256;
@@ -45,7 +52,6 @@ internal class LZWDecoder
             }
             dictionarySize++;
         }
-        //return BWTransform.BWT.ReverseConversion(output.ToArray(), matrixIndex);
         return BWTransform.BWT.ReverseConversion(output.ToArray(), BitConverter.ToInt32(data[0..4]));
     }
 
