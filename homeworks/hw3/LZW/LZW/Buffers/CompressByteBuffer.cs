@@ -1,6 +1,6 @@
 ﻿namespace LZW;
 
-internal static partial class LZWEncoder
+public static partial class LZWEncoder
 {
     /// <summary>
     /// Byte buffer for LZWEncoder

@@ -5,7 +5,7 @@ using TrieLibrary;
 /// <summary>
 /// Class for LZW (optional with BWT) encode, works with byte[]
 /// </summary>
-internal static partial class LZWEncoder
+public static partial class LZWEncoder
 {
     private static Trie FillTrieBySingleByteSequences()
     {
@@ -25,7 +25,14 @@ internal static partial class LZWEncoder
     /// <returns>Encoded data</returns>
     public static byte[] Encode(byte[] data, bool withBWT)
     {
-        
+        if (data is null)
+        {
+            throw new ArgumentNullException(nameof(data));
+        }
+        if (data.Length == 0)
+        {
+            throw new ArgumentException("data can't be empty");
+        }
         var buffer = new CompressByteBuffer();
         if (withBWT)
         {

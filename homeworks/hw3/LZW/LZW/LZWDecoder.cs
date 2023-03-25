@@ -3,7 +3,7 @@
 /// <summary>
 /// Class for LZW (with BWT) decode, works with byte[]
 /// </summary>
-internal partial class LZWDecoder
+public partial class LZWDecoder
 {
     const int maxAmountOfRecords = 65536;
 
@@ -14,6 +14,15 @@ internal partial class LZWDecoder
     /// <returns>Decoded data</returns>
     public static byte[] Decode(byte[] data)
     {
+        if (data is null)
+        {
+            throw new ArgumentNullException(nameof(data));
+        }
+        if (data.Length == 0)
+        {
+            throw new ArgumentException("data can't be empty");
+        }
+
         var output = new List<byte>();
         var dictionary = FillDictBySingleByteSequences();
         var numbers = GetNumbers(data[4..]);
