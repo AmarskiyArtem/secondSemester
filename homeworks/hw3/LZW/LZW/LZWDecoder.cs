@@ -1,11 +1,9 @@
-﻿using LZW.Buffers;
-
-namespace LZW;
+﻿namespace LZW;
 
 /// <summary>
 /// Class for LZW (with BWT) decode, works with byte[]
 /// </summary>
-internal class LZWDecoder
+internal partial class LZWDecoder
 {
     const int maxAmountOfRecords = 65536;
 

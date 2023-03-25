@@ -2,7 +2,7 @@
   "profiles": {
     "LZW": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\tests\\FallGuys_client_game.exe.zipped --u\r\n"
+      "commandLineArgs": "D:\\tests\\HarryPotter.txt.zipped --u"
     }
   }
 }

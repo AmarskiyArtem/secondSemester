@@ -1,11 +1,13 @@
-namespace LZWTests
+namespace LZWTests;
+
+public class Tests
 {
-    public class Tests
+
+    [Test]
+    public void EncodeAndDecodeShouldSame()
     {
-        [Test]
-        public void EncodeAndDecodeShouldSame()
-        {
-            LZWTransform.Compress(@"../../../../LZWTests/TestsFiles/v.mp4");
-        }
+        LZWTransform.Compress(@"../../../../LZWTests/TestsFiles/HarryPotter.txt");
+        LZWTransform.Decompress(@"../../../../LZWTests/TestsFiles/HarryPotter.txt.zipped");
+
     }
 }

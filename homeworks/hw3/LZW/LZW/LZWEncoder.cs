@@ -1,12 +1,11 @@
 ﻿namespace LZW;
 
-using LZW.Buffers;
 using TrieLibrary;
 
 /// <summary>
 /// Class for LZW (optional with BWT) encode, works with byte[]
 /// </summary>
-internal static class LZWEncoder
+internal static partial class LZWEncoder
 {
     private static Trie FillTrieBySingleByteSequences()
     {
