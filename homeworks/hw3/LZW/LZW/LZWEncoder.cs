@@ -7,7 +7,7 @@ internal static class LZWEncoder
 {
     private static Trie FillTrieBySingleByteSequences()
     {
-        Trie trie = new Trie();
+        var trie = new Trie();
         for (var i = 0; i < 256; i++)
         {
             trie.Add(new List<byte> { (byte)i });
@@ -15,10 +15,17 @@ internal static class LZWEncoder
         return trie;
     }
 
-    public static byte[] Encode(byte[] data)
+    public static byte[] Encode(byte[] data, bool withBWT)
     {
-        var trie = FillTrieBySingleByteSequences();
+        
         var buffer = new CompressByteBuffer();
+        if (withBWT)
+        {
+            int dataIndex;
+            (data, dataIndex) = BWTransform.BWT.FastDirectConversion(data);
+            buffer.Data.AddRange(BitConverter.GetBytes(dataIndex));
+        }
+        var trie = FillTrieBySingleByteSequences();
         var notRecordedSequence = new List<byte>();
         var currentTrieMaxSize = 512;
         const int trieMaxSize = 65536;

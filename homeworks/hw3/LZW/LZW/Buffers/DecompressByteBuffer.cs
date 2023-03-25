@@ -47,7 +47,7 @@ internal class DecompressByteBuffer
         return bits;
     }
 
-    public void AddLastByte(byte bt)
+    public void AddLastByteToData(byte bt)
     {
         var bits = BitsOfLastByte(bt);
         foreach(var bit in bits)

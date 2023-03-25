@@ -9,8 +9,9 @@ internal class LZWDecoder
     public static byte[] Decode(byte[] data)
     {
         var output = new List<byte>();
+        //var matrixIndex = BitConverter.ToInt32(data[0..4]);
         var dictionary = FillDictBySingleByteSequences();
-        var numbers = GetNumbers(data);
+        var numbers = GetNumbers(data[4..]);
         var dictionaryPoiner = 256;
         var dictionarySize = 256;
         var sequence = new List<byte>();
@@ -44,7 +45,8 @@ internal class LZWDecoder
             }
             dictionarySize++;
         }
-        return output.ToArray();
+        //return BWTransform.BWT.ReverseConversion(output.ToArray(), matrixIndex);
+        return BWTransform.BWT.ReverseConversion(output.ToArray(), BitConverter.ToInt32(data[0..4]));
     }
 
     private static Dictionary<int, List<byte>> FillDictBySingleByteSequences()
@@ -62,7 +64,6 @@ internal class LZWDecoder
         var buffer = new DecompressByteBuffer();
         var amountOfRecords = 256;
         var maxAmountOfRecordsWithCurrentBitsPerNumber = 512;
-        //var isLastByteAdded = false;
         for (var i = 0; i < data.Length - 1; i++)
         {
             if (amountOfRecords == maxAmountOfRecords)
@@ -78,25 +79,16 @@ internal class LZWDecoder
             }
             if (buffer.AddByteToData(data[i]))
             {
-                //isLastByteAdded = true;
                 amountOfRecords++;
             }
-            //else
-            //{
-            //    isLastByteAdded = false;
-            //}
         }
-        //if (!isLastByteAdded)
-        //{
-        //    buffer.AddNumberToData();
-        //}
         if (buffer.BitsInCurrentNumber + 8 == buffer.CurrentBitsPerNumber)
         {
             buffer.AddByteToData(data[^1]);
         }
         else
         {
-            buffer.AddLastByte(data[^1]);
+            buffer.AddLastByteToData(data[^1]);
         }
         return buffer.Data;
     }

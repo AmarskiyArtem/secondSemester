@@ -17,7 +17,7 @@ internal class ShiftsComparer : IComparer<int>
             {
                 return 1;
             }
-            if (data[(firstElementStartIndex + i) % data.Length] > data[(secondElementStartIndex + i) % data.Length])
+            if (data[(firstElementStartIndex + i) % data.Length] < data[(secondElementStartIndex + i) % data.Length])
             {
                 return -1;
             }

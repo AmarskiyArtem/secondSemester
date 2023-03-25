@@ -27,7 +27,7 @@ public static class BWT
 
 
 
-    static (byte[], int) FastDirectConversion(byte[] originalData)
+    public static (byte[], int) FastDirectConversion(byte[] originalData)
     {
         var shifts = Enumerable.Range(0, originalData.Length).ToArray();
         Array.Sort(shifts, new ShiftsComparer(originalData));
@@ -48,7 +48,7 @@ public static class BWT
 
     // Reverse BWT, takes string after BWT and index of original string in sorted shifts table,
     // returns original string
-    static byte[] ReverseConversion(byte[] convertedBytes, int tableIndex)
+    public static byte[] ReverseConversion(byte[] convertedBytes, int tableIndex)
     {
         var countSortArray = new int[alphabetSize];
         for (var i = 0; i < convertedBytes.Length; ++i)

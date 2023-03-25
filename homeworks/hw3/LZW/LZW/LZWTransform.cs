@@ -9,9 +9,10 @@ public static class LZWTransform
             throw new FileNotFoundException();
         }
         var data = File.ReadAllBytes(path);
-        var compressedData = LZWEncoder.Encode(data);
+        //var compressedDataWithoutBWT = LZWEncoder.Encode(data, false);
+        var compressedData = LZWEncoder.Encode(data, true);
         var newPath = path + ".zipped";
-        File.Create(newPath).Close();
+        //File.Create(newPath).Close();
         File.WriteAllBytes(newPath, compressedData);
         //Console.WriteLine((double)compressedData.Length/data.Length);
     }
@@ -24,8 +25,6 @@ public static class LZWTransform
         }
         var compressedData = File.ReadAllBytes(path);
         var data = LZWDecoder.Decode(compressedData);
-        var newPath = path[0..(path.Length - 6)];
-        File.Create(newPath).Close();
-        File.WriteAllBytes(newPath, data);
+        File.WriteAllBytes(path[0..(^6)], data);
     }
 }

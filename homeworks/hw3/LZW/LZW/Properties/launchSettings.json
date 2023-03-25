@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LZW": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\tests\\TextDocument.txt.zipped --u\r\n"
+    }
+  }
+}
