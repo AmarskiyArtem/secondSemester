@@ -29,7 +29,19 @@ public static class BWT
 
     static (byte[], int) FastDirectConversion(byte[] originalData)
     {
-
+        var shifts = Enumerable.Range(0, originalData.Length).ToArray();
+        Array.Sort(shifts, new ShiftsComparer(originalData));
+        var result = new byte[shifts.Length];
+        int originalSequenceIndex = 0;
+        for (int i = 0; i < shifts.Length; i++)
+        {
+            result[i] = originalData[(shifts[i] + originalData.Length - 1) % originalData.Length];
+            if (shifts[i] == 0)
+            {
+                originalSequenceIndex = i;
+            }
+        }
+        return (result, originalSequenceIndex);
     }
 
     private const int alphabetSize = 256;

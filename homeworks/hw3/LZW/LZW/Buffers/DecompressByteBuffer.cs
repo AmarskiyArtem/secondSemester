@@ -6,8 +6,8 @@ internal class DecompressByteBuffer
 
     public int CurrentBitsPerNumber { get; set; } = 9;
 
-    public int currentNumber { get; private set; }
-    public int bitsInCurrentNumber { get; private set; }
+    public int CurrentNumber { get; private set; }
+    public int BitsInCurrentNumber { get; private set; }
 
     private const int BitsInByte = 8;
 
@@ -18,9 +18,9 @@ internal class DecompressByteBuffer
         var bits = GetBitsFromByte(bt);
         foreach (var bit in bits)
         {
-            currentNumber = (currentNumber << 1) + bit;
-            ++bitsInCurrentNumber;
-            if (bitsInCurrentNumber == CurrentBitsPerNumber)
+            CurrentNumber = (CurrentNumber << 1) + bit;
+            ++BitsInCurrentNumber;
+            if (BitsInCurrentNumber == CurrentBitsPerNumber)
             {
                 AddNumberToData();
                 wasAdded = true;
@@ -31,12 +31,12 @@ internal class DecompressByteBuffer
 
     public void AddNumberToData()
     {
-        Data.Add(currentNumber);
-        currentNumber = 0;
-        bitsInCurrentNumber = 0;
+        Data.Add(CurrentNumber);
+        CurrentNumber = 0;
+        BitsInCurrentNumber = 0;
     }
 
-    private byte[] GetBitsFromByte(byte bt)
+    private static byte[] GetBitsFromByte(byte bt)
     {
         var bits = new byte[BitsInByte];
         for (var i = BitsInByte - 1; i >= 0; i--)
@@ -52,9 +52,9 @@ internal class DecompressByteBuffer
         var bits = BitsOfLastByte(bt);
         foreach(var bit in bits)
         {
-            currentNumber = (currentNumber << 1) + bit;
-            ++bitsInCurrentNumber;
-            if (bitsInCurrentNumber == CurrentBitsPerNumber)
+            CurrentNumber = (CurrentNumber << 1) + bit;
+            ++BitsInCurrentNumber;
+            if (BitsInCurrentNumber == CurrentBitsPerNumber)
             {
                 AddNumberToData();
             }
@@ -69,7 +69,7 @@ internal class DecompressByteBuffer
             bits.Add((byte)(bt % 2));
             bt >>= 1;
         }
-        while (bits.Count + bitsInCurrentNumber < BitsInByte)
+        while (bits.Count + BitsInCurrentNumber < BitsInByte)
         {
             bits.Add(0);
         }

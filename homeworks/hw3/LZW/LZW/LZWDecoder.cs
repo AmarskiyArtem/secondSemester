@@ -90,7 +90,7 @@ internal class LZWDecoder
         //{
         //    buffer.AddNumberToData();
         //}
-        if (buffer.bitsInCurrentNumber + 8 == buffer.CurrentBitsPerNumber)
+        if (buffer.BitsInCurrentNumber + 8 == buffer.CurrentBitsPerNumber)
         {
             buffer.AddByteToData(data[^1]);
         }
