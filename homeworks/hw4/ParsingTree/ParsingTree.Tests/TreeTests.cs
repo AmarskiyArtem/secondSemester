@@ -43,4 +43,17 @@ public class TreeTests
     {
         var e = Assert.Throws<ArgumentNullException>(() => new ParsingTree(null));
     }
+
+    [Test]
+    public void PrintTreeShouldRightString()
+    {
+        var tree = new ParsingTree("(* (+ 11 10) 20)");
+        var rightAnswer = "* + 11 10 20 ";
+        using (var output = new StringWriter())
+        {
+            Console.SetOut(output);
+            tree.PrintTree();
+            Assert.That(output.ToString(), Is.EqualTo(rightAnswer));
+        }
+    }
 }
