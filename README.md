@@ -2,11 +2,11 @@
 
 |Homeworks |
 |--------- |
-|[Homework 1](https://github.com/AmarskiyArtem/secondSemester/edit/main/README.md#homework-1)|
-|[Homework 2](https://github.com/AmarskiyArtem/secondSemester/edit/main/README.md#homework-2)|
-|[Homework 3](https://github.com/AmarskiyArtem/secondSemester/edit/main/README.md#homework-3)|
-|[Homework 4](https://github.com/AmarskiyArtem/secondSemester/edit/main/README.md#homework-4)|
-|[Homework 5](https://github.com/AmarskiyArtem/secondSemester/edit/main/README.md#homework-5)|
+|[Homework 1](#homework-1)|
+|[Homework 2](#homework-2)|
+|[Homework 3](#homework-3)|
+|[Homework 4](#homework-4)|
+|[Homework 5](#homework-5)|
 
 ### Homework 1
 #### Task 1 `Сортировка`
