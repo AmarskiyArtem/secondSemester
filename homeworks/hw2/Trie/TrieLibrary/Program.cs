@@ -7,12 +7,6 @@ static void PrintActions()
             "5 - find out the number of words in trie\n6 - print actions again");
 }
 
-if (!Trie.Tests())
-{
-    Console.WriteLine("Tests failed");
-    return;
-}
-
 var trie = new Trie();
 var isContinue = true;
 PrintActions();
@@ -32,6 +26,11 @@ while (isContinue)
             {
                 Console.WriteLine("Input a word");
                 var word = Console.ReadLine();
+                if (word == null)
+                {
+                    Console.WriteLine("Input can't be null");
+                    break;
+                }
                 Console.WriteLine(trie.Add(word) ? "Successfully added" : "Already added");
                 break;
             }
@@ -39,6 +38,11 @@ while (isContinue)
             {
                 Console.WriteLine("Input a word");
                 var word = Console.ReadLine();
+                if (word == null)
+                {
+                    Console.WriteLine("Input can't be null");
+                    break;
+                }
                 Console.WriteLine(trie.Contains(word) ? "Contains" : "Not contains");
                 break;
             }
@@ -46,6 +50,11 @@ while (isContinue)
             {
                 Console.WriteLine("Input a word");
                 var word = Console.ReadLine();
+                if (word == null)
+                {
+                    Console.WriteLine("Input can't be null");
+                    break;
+                }
                 Console.WriteLine(trie.Remove(word) ? "Successfully removed" : "Not contains");
                 break;
             }
@@ -53,6 +62,11 @@ while (isContinue)
             {
                 Console.WriteLine("Input a prefix");
                 var prefix = Console.ReadLine();
+                if (prefix == null)
+                {
+                    Console.WriteLine("Input can't be null");
+                    break;
+                }
                 Console.WriteLine($"{trie.HowManyStartsWithPrefix(prefix)} words with that prefix");
                 break;
             }
