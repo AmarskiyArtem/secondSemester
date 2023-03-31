@@ -2,8 +2,10 @@
 
 using System.Collections.Generic;
 
-// Trie data structure
-internal class Trie
+/// <summary>
+/// Trie data structure
+/// </summary>
+public class Trie
 {
     private class TrieNode
     {
@@ -20,7 +22,11 @@ internal class Trie
 
     public int Size { get; private set; }
 
-    // Add word to trie. Returns false if the word already been added otherwise true
+    /// <summary>
+    /// Add word to trie.
+    /// </summary>
+    /// <param name="word">Word to add</param>
+    /// <returns>false if the word already been added otherwise true</returns>
     public bool Add(string word)
     {
         if (word == "")
@@ -55,7 +61,9 @@ internal class Trie
         return true;
     }
 
-    // Check if word contatins in the trie
+    /// <summary>
+    /// Check if word contatins in the trie
+    /// </summary>
     public bool Contains(string word)
     {
         if (word == "")
@@ -75,8 +83,10 @@ internal class Trie
         return node.IsTerminate;
     }
 
-    // Remove element from the trie. Returns true if successful, false if element 
-    // is not contained in the trie
+    /// <summary>
+    /// Remove element from the trie. 
+    /// </summary>
+    /// <returns>true if successful, false if element is not contained in the trie</returns>
     public bool Remove(string word)
     {
         if (word == "")
@@ -106,7 +116,9 @@ internal class Trie
 
     }
 
-    // Return how many word added to the trie starts with the passed prefix
+    /// <summary>
+    /// Return how many word added to the trie starts with the passed prefix
+    /// </summary>
     public int HowManyStartsWithPrefix(string prefix)
     {
         if (prefix == "")
@@ -123,41 +135,6 @@ internal class Trie
             node = node.Children[ch];
         }
         return node.WordsWithSamePrefix;
-    }
-
-    // Tests
-    static public bool Tests()
-    {
-        Trie testTrie = new();
-        if (!testTrie.Add("Cat") || testTrie.Size != 1)
-        {
-            return false;
-        }
-        if (!testTrie.Add("Catyy") || testTrie.Size != 2)
-        {
-            return false;
-        }
-        if (!testTrie.Add("CatLand") || testTrie.Size != 3)
-        {
-            return false;
-        }
-        if (!testTrie.Add("SomeAnotherPrefix") || testTrie.Size != 4)
-        {
-            return false;
-        }
-        if (!testTrie.Contains("Catyy") || testTrie.Contains("WordWhichDontExist"))
-        {
-            return false;
-        }
-        if (testTrie.HowManyStartsWithPrefix("Cat") != 3 || testTrie.HowManyStartsWithPrefix("Soma") != 0)
-        {
-            return false;
-        }
-        if (!testTrie.Remove("Cat") || testTrie.Size != 3 || testTrie.Remove("Cat"))
-        {
-            return false;
-        }
-        return testTrie.HowManyStartsWithPrefix("Ca") == 2;
     }
 }
 
