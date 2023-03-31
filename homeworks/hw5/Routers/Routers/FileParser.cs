@@ -2,10 +2,10 @@
 
 using System.Text.RegularExpressions;
 
-internal static class FileParser
+public static class FileParser
 {
 
-    private static bool isCorrectLine(string line)
+    private static bool IsCorrectLine(string line)
         => Regex.IsMatch(line, @"\d+: (\d+ \(\d+\),? ?)+");
 
     public static LinkedList<(int, LinkedList<(int, int)>)> ParseFile(string path)
@@ -14,9 +14,9 @@ internal static class FileParser
         var lines = File.ReadAllLines(path);
         foreach (var line in lines)
         {
-            if (!isCorrectLine(line))
+            if (!IsCorrectLine(line))
             {
-                throw;
+                throw new IncorrectLineException($"{line} does not match the pattern");
             }
         }
         return result;

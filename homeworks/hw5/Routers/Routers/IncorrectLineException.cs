@@ -2,5 +2,5 @@
 
 public class IncorrectLineException : Exception
 {
-    IncorrectLineException(string message) : base(message) { }
+    public IncorrectLineException(string message) : base(message) { }
 }
