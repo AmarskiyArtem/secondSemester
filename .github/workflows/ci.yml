@@ -12,7 +12,7 @@ jobs:
       - name: Build
         run: for f in $(find . -name "*sln"); do dotnet build $f; done
       - name: RunTests
-        run: for f in $(find . -name "*sln"); do dotnet tests $f; done
+        run: for f in $(find . -name "*sln"); do dotnet test $f; done
       
   
   
