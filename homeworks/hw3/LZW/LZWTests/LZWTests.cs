@@ -22,7 +22,7 @@ public class Tests
     {
         yield return new TestCaseData(@"../../../TestFiles/HarryPotter.txt");
         yield return new TestCaseData(@"../../../TestFiles/NeverGonnaGiveUup.mp3");
-        yield return new TestCaseData(@"../../../TestFiles/shad.jpg");
+        yield return new TestCaseData(@"../../../TestFiles/shad.png");
     }
 
     [TestCaseSource(nameof(Path))]
