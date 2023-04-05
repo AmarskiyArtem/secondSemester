@@ -15,3 +15,16 @@
  */
 
 using Routers;
+
+var dict = new Dictionary<(int, int), int>();
+dict.Add((1, 4), 15);
+dict.Add((4, 2), 8);
+dict.Add((1, 2), 3);
+dict.Add((2, 5), 10);
+dict.Add((5, 3), 11);
+dict.Add((4, 5), 30);
+dict.Add((1, 3), 4);
+
+var dict2  = new Dictionary<(int, int), int>();
+dict2.Add((4, 5), 30);
+Prim.GetListOfPotentialEdges(dict, dict2);
