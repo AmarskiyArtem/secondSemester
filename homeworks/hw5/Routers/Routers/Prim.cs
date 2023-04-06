@@ -25,25 +25,45 @@ public static class Prim
     public static Dictionary<(int, int), int> GetMaximalSpanningTree(Dictionary<(int, int), int> edges)
     {
         var resultEdges = new Dictionary<(int, int), int>();
-        var maxWeightEdge = 0;
-        (int, int) maxWeightEdgeVertexes = (0, 0);
-        foreach (KeyValuePair<(int, int), int> pair in edges)
+        //var maxWeightEdge = 0;
+        //(int, int) maxWeightEdgeVertexes = (0, 0);
+        //foreach (KeyValuePair<(int, int), int> pair in edges)
+        //{
+        //    if (pair.Value > maxWeightEdge)
+        //    {
+        //        maxWeightEdge = pair.Value;
+        //        maxWeightEdgeVertexes = pair.Key;
+        //    }
+        //}
+        
+        //resultEdges.Add(maxWeightEdgeVertexes, maxWeightEdge);
+        while (true)
         {
-            if (pair.Value > maxWeightEdge)
+            var possibleEdges = GetListOfPotentialEdges(edges, resultEdges);
+            if (possibleEdges.Count == 0)
             {
-                maxWeightEdge = pair.Value;
-                maxWeightEdgeVertexes = pair.Key;
+                break;
             }
+            var nextEdge = GetNextEdge(possibleEdges);
+            resultEdges.Add(nextEdge.Item1, nextEdge.Item2);
         }
-        resultEdges.Add(maxWeightEdgeVertexes, maxWeightEdge);
-        return null;
+        return resultEdges;
     }
 
-    //private static ((int, int), int) GetNextEdge(Dictionary<(int, int), int> edges,
-    //    Dictionary<(int, int), int> currentEdgesInSpanningTree)
-    //{
-
-    //}
+    private static ((int, int), int) GetNextEdge(List<((int, int), int)> potentitalEdges)
+    {
+        var maxWeightEdge = 0;
+        (int, int) maxWeightEdgeVertexes = (0, 0);
+        foreach (var pair in potentitalEdges)
+        {
+            if (pair.Item2 > maxWeightEdge)
+            {
+                maxWeightEdge = pair.Item2;
+                maxWeightEdgeVertexes = pair.Item1;
+            }
+        }
+        return (maxWeightEdgeVertexes, maxWeightEdge);
+    }
 
     public static List<((int, int), int)> GetListOfPotentialEdges(Dictionary<(int, int), int> edges,
         Dictionary<(int, int), int> currentEdgesInSpanningTree)

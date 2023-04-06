@@ -24,7 +24,10 @@ dict.Add((2, 5), 10);
 dict.Add((5, 3), 11);
 dict.Add((4, 5), 30);
 dict.Add((1, 3), 4);
-
-var dict2  = new Dictionary<(int, int), int>();
-dict2.Add((4, 5), 30);
-Prim.GetListOfPotentialEdges(dict, dict2);
+var answer = Prim.GetMaximalSpanningTree(dict);
+Console.WriteLine(answer);
+//var dict2  = new Dictionary<(int, int), int>();
+//dict2.Add((4, 5), 30);
+//dict2.Add((1, 4), 15);
+//dict2.Add((5, 3), 11);
+//Prim.GetListOfPotentialEdges(dict, dict2);
