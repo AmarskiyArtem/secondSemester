@@ -24,9 +24,9 @@ public static class FileParser
     private static bool IsCorrectLine(string line)
         => Regex.IsMatch(line, @"\d+: (\d+ \(\d+\),? ?)+");
 
-    public static LinkedList<(int, LinkedList<(int, int)>)> ParseFile(string path)
+    public static Dictionary<(int, int), int> GetGraphFromFile(string path)
     {
-        var result = new LinkedList<(int, LinkedList<(int, int)>)>();
+        var result = new Dictionary<(int, int), int>();
         var lines = File.ReadAllLines(path);
         foreach (var line in lines)
         {
@@ -34,9 +34,30 @@ public static class FileParser
             {
                 throw new Exceptions.IncorrectLineException($"{line} does not match the pattern");
             }
+            var parsedLine = ParseLine(line);
+            foreach (var pairs in parsedLine)
+            {
+                result.Add(pairs.Item1, pairs.Item2);
+            }
         }
         return result;
     }
 
+    public static List<((int, int), int)> ParseLine(string line)
+    {
+        var parts = line.Split(':');
+        var firstVertex = int.Parse(parts[0].Trim());
+        var items = parts[1].Split(',');
+        var result = new List<((int, int), int)>();
 
+        foreach (var item in items)
+        {
+            var secondVertex = item.Trim().Split('(');
+            var secondVertexNumber = int.Parse(secondVertex[0].Trim());
+            var edgeSpeed = int.Parse(secondVertex[1].TrimEnd(')'));
+            result.Add(((firstVertex, secondVertexNumber), edgeSpeed));
+        }
+
+        return result;
+    }
 }
