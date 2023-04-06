@@ -24,9 +24,20 @@ public static class FileParser
     private static bool IsCorrectLine(string line)
         => Regex.IsMatch(line, @"\d+: (\d+ \(\d+\),? ?)+");
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    /// <exception cref="FileNotFoundException"></exception>
+    /// <exception cref="Exceptions.IncorrectLineException"></exception>
     public static Dictionary<(int, int), int> GetGraphFromFile(string path)
     {
         var result = new Dictionary<(int, int), int>();
+        if (!File.Exists(path))
+        {
+            throw new FileNotFoundException();
+        }
         var lines = File.ReadAllLines(path);
         foreach (var line in lines)
         {

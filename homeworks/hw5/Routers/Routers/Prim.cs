@@ -28,6 +28,10 @@ public static class Prim
         {
             throw new Exceptions.EmptyGraphException();
         }
+        if (edges.Count == 1)
+        {
+            return edges;
+        }
         var resultEdges = new Dictionary<(int, int), int>();
         var maxWeightEdge = 0;
         (int, int) maxWeightEdgeVertexes = (0, 0);

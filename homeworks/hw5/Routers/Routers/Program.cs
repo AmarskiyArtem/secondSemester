@@ -15,21 +15,36 @@
  */
 
 using Routers;
+using Routers.Exceptions;
 
-//var dict = new Dictionary<(int, int), int>();
-//dict.Add((1, 4), 15);
-//dict.Add((4, 2), 8);
-//dict.Add((1, 2), 3);
-//dict.Add((2, 5), 10);
-//dict.Add((5, 3), 11);
-//dict.Add((4, 5), 30);
-//dict.Add((1, 3), 4);
-//var answer = Prim.GetMaximalSpanningTree(dict);
-//Console.WriteLine(answer);
-//var dict2  = new Dictionary<(int, int), int>();
-//dict2.Add((4, 5), 30);
-//dict2.Add((1, 4), 15);
-//dict2.Add((5, 3), 11);
-//Prim.GetListOfPotentialEdges(dict, dict2);
+if (args.Length != 2)
+{
+    Console.Error.WriteLine("Invalid number of arguments");
+    return -1;
+}
 
-FileParser.GetGraphFromFile(@"D:\programming\programmingSBPU\secondSemesterFolder\secondSemester\homeworks\hw5\Routers\Routers\test.txt");
+Dictionary<(int, int), int> graph;
+try
+{
+    graph = FileParser.GetGraphFromFile(args[0]);
+}
+catch (Exception e) when (e is FileNotFoundException || e is IncorrectLineException)
+{
+    Console.Error.WriteLine(e.Message);
+    return -1;
+}
+
+Dictionary<(int, int), int> spanningTree;
+try
+{
+    spanningTree = Prim.GetMaximalSpanningTree(graph);
+}
+catch (Exception e) when (e is EmptyGraphException || e is DisconnectedGraphException)
+{
+    Console.Error.WriteLine(e.Message);
+    return -1;
+}
+
+var resultLines = GraphToLinesConverter.GetLinesFromGraph(spanningTree);
+File.WriteAllLines(args[1], resultLines);
+return 0;

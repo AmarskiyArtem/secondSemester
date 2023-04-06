@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Routers": {
+      "commandName": "Project",
+      "commandLineArgs": "\"D:\\programming\\programmingSBPU\\secondSemesterFolder\\secondSemester\\homeworks\\hw5\\Routers\\Routers\\test.txt\" \"D:\\programming\\programmingSBPU\\secondSemesterFolder\\secondSemester\\homeworks\\hw5\\Routers\\Routers\\answer.txt\""
+    }
+  }
+}
