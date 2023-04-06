@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-namespace Routers;
+namespace Routers.Exceptions;
 
 public class IncorrectLineException : Exception
 {

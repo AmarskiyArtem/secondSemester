@@ -14,29 +14,10 @@
  * limitations under the License.
  */
 
-namespace Routers;
+namespace Routers.Exceptions;
 
-using System.Text.RegularExpressions;
-
-public static class FileParser
+public class EmptyGraphException : Exception
 {
-
-    private static bool IsCorrectLine(string line)
-        => Regex.IsMatch(line, @"\d+: (\d+ \(\d+\),? ?)+");
-
-    public static LinkedList<(int, LinkedList<(int, int)>)> ParseFile(string path)
-    {
-        var result = new LinkedList<(int, LinkedList<(int, int)>)>();
-        var lines = File.ReadAllLines(path);
-        foreach (var line in lines)
-        {
-            if (!IsCorrectLine(line))
-            {
-                throw new Exceptions.IncorrectLineException($"{line} does not match the pattern");
-            }
-        }
-        return result;
-    }
-
-
+    public EmptyGraphException() : base() { }
+    public EmptyGraphException(string message) : base(message) { }
 }

@@ -24,19 +24,22 @@ public static class Prim
 {
     public static Dictionary<(int, int), int> GetMaximalSpanningTree(Dictionary<(int, int), int> edges)
     {
+        if (edges.Count == 0)
+        {
+            throw new Exceptions.EmptyGraphException();
+        }
         var resultEdges = new Dictionary<(int, int), int>();
-        //var maxWeightEdge = 0;
-        //(int, int) maxWeightEdgeVertexes = (0, 0);
-        //foreach (KeyValuePair<(int, int), int> pair in edges)
-        //{
-        //    if (pair.Value > maxWeightEdge)
-        //    {
-        //        maxWeightEdge = pair.Value;
-        //        maxWeightEdgeVertexes = pair.Key;
-        //    }
-        //}
-        
-        //resultEdges.Add(maxWeightEdgeVertexes, maxWeightEdge);
+        var maxWeightEdge = 0;
+        (int, int) maxWeightEdgeVertexes = (0, 0);
+        foreach (var edge in edges)
+        {
+            if (edge.Value > maxWeightEdge)
+            {
+                maxWeightEdge = edge.Value;
+                maxWeightEdgeVertexes = edge.Key;
+            }
+        }
+        resultEdges.Add(maxWeightEdgeVertexes, maxWeightEdge);
         while (true)
         {
             var possibleEdges = GetListOfPotentialEdges(edges, resultEdges);
@@ -46,6 +49,10 @@ public static class Prim
             }
             var nextEdge = GetNextEdge(possibleEdges);
             resultEdges.Add(nextEdge.Item1, nextEdge.Item2);
+        }
+        if (resultEdges.Count != GetNumberOfVertexes(edges) - 1)
+        {
+            throw new Exceptions.DisconnectedGraphException();
         }
         return resultEdges;
     }
@@ -65,7 +72,7 @@ public static class Prim
         return (maxWeightEdgeVertexes, maxWeightEdge);
     }
 
-    public static List<((int, int), int)> GetListOfPotentialEdges(Dictionary<(int, int), int> edges,
+    private static List<((int, int), int)> GetListOfPotentialEdges(Dictionary<(int, int), int> edges,
         Dictionary<(int, int), int> currentEdgesInSpanningTree)
     {
         var vertexesInCurrentEdges = new HashSet<int>();
@@ -83,5 +90,16 @@ public static class Prim
             }
         }
         return potentialEdges;
+    }
+    
+    private static int GetNumberOfVertexes(Dictionary<(int, int), int> edges)
+    {
+        var vertexes = new HashSet<int>();
+        foreach (var edge in edges.Keys)
+        {
+            vertexes.Add(edge.Item1);
+            vertexes.Add(edge.Item2);
+        }
+        return vertexes.Count;
     }
 }
