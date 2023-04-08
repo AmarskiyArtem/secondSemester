@@ -18,17 +18,18 @@ namespace Routers;
 
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// Class for getting dictionary of edges from file
+/// </summary>
 public static class FileParser
 {
 
     private static bool IsCorrectLine(string line)
         => Regex.IsMatch(line, @"^\d+: (\d+ \(\d+\),? ?)+$");
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="path"></param>
-    /// <returns></returns>
+
+    /// <param name="path">path to file</param>
+    /// <returns>dict of edges. Keys - (vertex, vertex), Values - weight of edge</returns>
     /// <exception cref="FileNotFoundException"></exception>
     /// <exception cref="Exceptions.InvalidLineException"></exception>
     public static Dictionary<(int, int), int> GetGraphFromFile(string path)

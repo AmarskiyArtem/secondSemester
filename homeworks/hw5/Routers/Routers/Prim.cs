@@ -22,6 +22,13 @@ namespace Routers;
 /// </summary>
 public static class Prim
 {
+    /// <summary>
+    /// Takes a graph as a dictionary of edges, build a maximum spanning tree (if possible)
+    /// </summary>
+    /// <param name="edges">sourse graph</param>
+    /// <returns>Dictionary<(vertex, vertex), weight></returns>
+    /// <exception cref="Exceptions.EmptyGraphException"></exception>
+    /// <exception cref="Exceptions.DisconnectedGraphException"></exception>
     public static Dictionary<(int, int), int> GetMaximalSpanningTree(Dictionary<(int, int), int> edges)
     {
         if (edges.Count == 0)
