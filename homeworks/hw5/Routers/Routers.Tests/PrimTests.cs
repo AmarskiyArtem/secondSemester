@@ -1,15 +1,10 @@
+using Routers.Exceptions;
+
 namespace Routers.Tests;
 
-
-/*
- *  1: 4(15), 3(4), 2(3)
-    2: 4(8), 5(10)
-    3: 5(11)
-    4: 5(30)
- */
 public class PrimTests
 {
-    private static bool IsEqualDicts(Dictionary<(int, int), int> first, Dictionary<(int, int), int> second)
+    public static bool IsEqualDicts(Dictionary<(int, int), int> first, Dictionary<(int, int), int> second)
     {
         foreach (var kvp in first)
         {
@@ -43,5 +38,27 @@ public class PrimTests
         };
         var spanningTree = Prim.GetMaximalSpanningTree(graph);
         Assert.IsTrue(IsEqualDicts(spanningTree, rightSpanningTree));
+    }
+    
+    [Test]
+    public void EmptyGraphShouldException()
+    {
+        Assert.Throws<EmptyGraphException>(() => Prim.GetMaximalSpanningTree(new Dictionary<(int, int), int>()));
+    }
+
+    [Test]
+    public void DisconnectedGraphShouldException()
+    {
+        var disconnectedGraph = new Dictionary<(int, int), int>()
+        {
+            { (1, 2), 34 },
+            { (2, 7), 32 },
+            { (4, 3), 345 },
+            { (3, 8), 11 },
+            { (4, 6), 132 },
+            { (2, 5), 312 },
+            { (5, 7), 33 },
+        };
+        Assert.Throws<DisconnectedGraphException>(() => Prim.GetMaximalSpanningTree(disconnectedGraph));
     }
 }

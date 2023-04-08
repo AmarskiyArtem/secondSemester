@@ -28,7 +28,7 @@ try
 {
     graph = FileParser.GetGraphFromFile(args[0]);
 }
-catch (Exception e) when (e is FileNotFoundException || e is IncorrectLineException)
+catch (Exception e) when (e is FileNotFoundException || e is InvalidLineException)
 {
     Console.Error.WriteLine(e.Message);
     return -1;

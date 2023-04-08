@@ -1,6 +1,6 @@
 ﻿namespace Routers;
 
-internal static class GraphToLinesConverter
+public static class GraphToLinesConverter
 {
     public static string[] GetLinesFromGraph(Dictionary<(int, int), int> graph)
     {

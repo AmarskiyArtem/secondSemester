@@ -16,7 +16,7 @@
 
 namespace Routers.Exceptions;
 
-public class IncorrectLineException : Exception
+public class InvalidLineException : Exception
 {
-    public IncorrectLineException(string message) : base(message) { }
+    public InvalidLineException(string message) : base(message) { }
 }

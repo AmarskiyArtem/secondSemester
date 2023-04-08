@@ -22,7 +22,7 @@ public static class FileParser
 {
 
     private static bool IsCorrectLine(string line)
-        => Regex.IsMatch(line, @"\d+: (\d+ \(\d+\),? ?)+");
+        => Regex.IsMatch(line, @"^\d+: (\d+ \(\d+\),? ?)+$");
 
     /// <summary>
     /// 
@@ -30,7 +30,7 @@ public static class FileParser
     /// <param name="path"></param>
     /// <returns></returns>
     /// <exception cref="FileNotFoundException"></exception>
-    /// <exception cref="Exceptions.IncorrectLineException"></exception>
+    /// <exception cref="Exceptions.InvalidLineException"></exception>
     public static Dictionary<(int, int), int> GetGraphFromFile(string path)
     {
         var result = new Dictionary<(int, int), int>();
@@ -43,7 +43,7 @@ public static class FileParser
         {
             if (!IsCorrectLine(line))
             {
-                throw new Exceptions.IncorrectLineException($"{line} does not match the pattern");
+                throw new Exceptions.InvalidLineException($"{line} does not match the pattern");
             }
             var parsedLine = ParseLine(line);
             foreach (var pairs in parsedLine)
@@ -54,7 +54,7 @@ public static class FileParser
         return result;
     }
 
-    public static List<((int, int), int)> ParseLine(string line)
+    private static List<((int, int), int)> ParseLine(string line)
     {
         var parts = line.Split(':');
         var firstVertex = int.Parse(parts[0].Trim());
