@@ -24,4 +24,13 @@ public static class Funcs
         }
         return result;
     }
+
+    public static TOutput Fold<TInput, TOutput>(List<TInput> list, TOutput initialValue, Func<TInput, TOutput, TOutput> func)
+    {
+        foreach (var x in list)
+        {
+            initialValue = func(x, initialValue);
+        }
+        return initialValue;
+    }
 }

@@ -3,8 +3,7 @@ using LambdaPractice;
 
 var a = new List<int>()
 {
-    1, 2, 3, 4, 5, 6
+    1, 2, 3
 };
 
-a = Funcs.Filter<int>(a, x => x % 2 == 0);
-a.Capacity = 2;
+Console.WriteLine(Funcs.Fold<int, int>(a, 0, (x, acc) => x + acc)); 
