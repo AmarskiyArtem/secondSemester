@@ -11,4 +11,17 @@ public static class Funcs
         }
         return result;
     }
+
+    public static List<T> Filter<T>(List<T> list, Func<T, bool> predicate)
+    {
+        var result = new List<T>();
+        foreach (var x in list)
+        {
+            if (predicate(x))
+            {
+                result.Add(x);
+            }
+        }
+        return result;
+    }
 }
