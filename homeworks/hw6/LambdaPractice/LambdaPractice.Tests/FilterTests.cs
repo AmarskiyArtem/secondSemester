@@ -1,6 +1,6 @@
 ﻿namespace LambdaPractice.Tests;
 
-public class FilterTest
+public class FilterTests
 {
     [Test]
     public void IntTest()
