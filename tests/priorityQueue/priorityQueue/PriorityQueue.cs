@@ -1,4 +1,5 @@
 ﻿using priorityQueue;
+using System.Diagnostics;
 
 namespace PriorityQueueLibrary;
 
@@ -36,7 +37,7 @@ public class PriorityQueue<T>
     /// <summary>
     /// Returns if queue is empty
     /// </summary>
-    public bool Empty { get {  return tail == null; } }
+    public bool Empty { get => tail == null; }
 
     private void DeleteNode(Node node)
     {
@@ -45,10 +46,14 @@ public class PriorityQueue<T>
             tail = tail.Next;
             return;
         }
-        var currentNode = tail;
+        var currentNode = tail ?? throw new ArgumentNullException();
         while (currentNode.Next != node)
         {
             currentNode = currentNode.Next;
+            if (currentNode == null)
+            {
+                throw new ArgumentNullException();
+            }
         }
         currentNode.Next = node.Next;
     }
@@ -64,14 +69,26 @@ public class PriorityQueue<T>
             throw new PriorityQueueIsEmptyException();
         }
         var nodeWithMaxPriority = tail;
+        if (tail == null)
+        {
+            throw new ArgumentNullException();
+        }
         var currentNode = tail.Next;
         while (currentNode != null)
         {
+            if (nodeWithMaxPriority == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (currentNode.Priority >= nodeWithMaxPriority.Priority)
             {
                 nodeWithMaxPriority = currentNode;
             }
             currentNode = currentNode.Next;
+        }
+        if (nodeWithMaxPriority == null)
+        {
+            throw new ArgumentNullException();
         }
         var value = nodeWithMaxPriority.Value;
         DeleteNode(nodeWithMaxPriority);

@@ -8,7 +8,7 @@ public class PriorityQueueTests
     public void EmptyFromEmptyQueueShouldTrue()
     {
         var queue = new PriorityQueue<int>();
-        Assert.IsTrue(queue.Empty);
+        Assert.That(queue.Empty, Is.True);
     }
 
     [Test]
@@ -16,7 +16,7 @@ public class PriorityQueueTests
     {
         var queue = new PriorityQueue<string>();
         queue.Enqueue("aaa", 4);
-        Assert.IsFalse(queue.Empty);
+        Assert.That(queue.Empty, Is.False);
     }
 
     [Test]
@@ -47,7 +47,7 @@ public class PriorityQueueTests
         queue.Enqueue("3", 15);
         Assert.That(queue.Dequeue(), Is.EqualTo("a"));
         Assert.That(queue.Dequeue(), Is.EqualTo("2"));
-        Assert.IsFalse(queue.Empty);
+        Assert.That(queue.Empty, Is.False);
     }
 
     [Test]
@@ -59,9 +59,10 @@ public class PriorityQueueTests
         queue.Enqueue("a", 20);
         Assert.That(queue.Dequeue(), Is.EqualTo("a"));
         Assert.That(queue.Dequeue(), Is.EqualTo("2"));
-        Assert.IsFalse(queue.Empty);
+        Assert.That(queue.Empty, Is.False);
     }
 
+    [Test]
     public void DequeueWithSamePriorityShouldRightOrder()
     {
         var queue = new PriorityQueue<int>();
@@ -71,7 +72,7 @@ public class PriorityQueueTests
         queue.Enqueue(4, 14);
         queue.Enqueue(6, 14);
         queue.Dequeue();
-        Assert.That(queue.Dequeue(), Is.EqualTo(14));
+        Assert.That(queue.Dequeue(), Is.EqualTo(1));
         Assert.That(queue.Dequeue(), Is.EqualTo(4));
     }
 
