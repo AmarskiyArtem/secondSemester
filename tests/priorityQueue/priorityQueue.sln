@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "priorityQueue", "priorityQueue\priorityQueue.csproj", "{4E7ABBC1-09BD-4E4D-8FDF-D84E5666E2EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "priorityQueue", "priorityQueue\priorityQueue.csproj", "{4E7ABBC1-09BD-4E4D-8FDF-D84E5666E2EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriorityQueue.Tests", "PriorityQueue.Tests\PriorityQueue.Tests.csproj", "{1DDF7A82-AE40-4E06-99F4-794EFDAA204F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{4E7ABBC1-09BD-4E4D-8FDF-D84E5666E2EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E7ABBC1-09BD-4E4D-8FDF-D84E5666E2EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E7ABBC1-09BD-4E4D-8FDF-D84E5666E2EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DDF7A82-AE40-4E06-99F4-794EFDAA204F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DDF7A82-AE40-4E06-99F4-794EFDAA204F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DDF7A82-AE40-4E06-99F4-794EFDAA204F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DDF7A82-AE40-4E06-99F4-794EFDAA204F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
