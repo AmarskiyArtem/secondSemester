@@ -7,7 +7,10 @@ public class SkipList<T> : IList<T>
 {
     private record Node(T? Value, Node[] Next);
 
-    private readonly Node head = new(default, Array.Empty<Node>());
+    private readonly Node tail = new(default, Array.Empty<Node>());
+
+    private Node head = new(default, new Node[1]);
+    
 
 
     public T this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
@@ -48,7 +51,7 @@ public class SkipList<T> : IList<T>
 
     public void Insert(int index, T item)
     {
-        throw new NotImplementedException();
+        throw new NotSupportedException();
     }
 
     public bool Remove(T item)
