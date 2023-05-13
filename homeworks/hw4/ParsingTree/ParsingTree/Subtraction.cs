@@ -29,6 +29,12 @@ internal class Subtraction : Operation
     }
 
     /// <inheritdoc/>
-    public override double Calculate() 
-        => LeftChild.Calculate() - RightChild.Calculate();
+    public override double Calculate()
+    {
+        if (LeftChild is null || RightChild is null)
+        {
+            throw new InvalidOperationException();
+        }
+        return LeftChild.Calculate() - RightChild.Calculate(); 
+    }
 }

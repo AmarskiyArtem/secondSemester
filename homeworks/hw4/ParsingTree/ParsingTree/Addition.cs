@@ -30,5 +30,12 @@ internal class Addition : Operation
 
     /// <inheritdoc/>
     public override double Calculate()
-        => LeftChild.Calculate() + RightChild.Calculate();
+    {
+        if (LeftChild is not null && RightChild is not null)
+        {
+            return LeftChild.Calculate() + RightChild.Calculate();
+        }
+        throw new InvalidOperationException();
+    }
+
 }

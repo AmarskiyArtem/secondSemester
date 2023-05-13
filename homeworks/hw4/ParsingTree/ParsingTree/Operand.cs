@@ -23,7 +23,7 @@ internal class Operand : INode
 {
     public Operand(int value)
     {
-        this.Value = value;
+        Value = value;
     }
 
     public int Value { get; }

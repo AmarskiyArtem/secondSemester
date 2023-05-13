@@ -36,8 +36,12 @@ public class ParsingTree
         {
             throw new ArgumentException("String is empty.");
         }
-
         FillTree(expression);
+
+        if (root is null) 
+        {
+            throw new InvalidOperationException();
+        }
     }
 
     private INode root;

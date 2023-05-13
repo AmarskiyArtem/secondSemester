@@ -30,5 +30,11 @@ internal class Multiplication : Operation
 
     /// <inheritdoc/>
     public override double Calculate()
-        => LeftChild.Calculate() * RightChild.Calculate();
+    { 
+        if (LeftChild is null || RightChild is null)
+        {
+            throw new InvalidOperationException();
+        }
+        return LeftChild.Calculate() * RightChild.Calculate(); 
+    }
 }

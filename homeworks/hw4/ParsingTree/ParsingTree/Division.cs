@@ -32,6 +32,10 @@ internal class Division : Operation
     /// <exception cref="DivideByZeroException" ></exception>
     public override double Calculate()
     {
+        if (RightChild is null || LeftChild is null) 
+        {
+            throw new InvalidOperationException();
+        }
         if (Math.Abs(RightChild.Calculate()) < 0.001)
         {
             throw new DivideByZeroException();
