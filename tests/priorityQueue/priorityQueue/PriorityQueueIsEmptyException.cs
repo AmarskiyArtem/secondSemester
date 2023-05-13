@@ -1,4 +1,4 @@
-﻿namespace priorityQueue;
+﻿namespace PriorityQueueLibrary;
 
 /// <summary>
 /// An exception thrown if there are no items in the queue

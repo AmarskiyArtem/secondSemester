@@ -1,6 +1,4 @@
-﻿using priorityQueue;
-
-namespace PriorityQueueLibrary.Tests;
+﻿namespace PriorityQueueLibrary.Tests;
 
 public class PriorityQueueTests
 {
@@ -63,7 +61,7 @@ public class PriorityQueueTests
     }
 
     [Test]
-    public void DequeueWithSamePriorityShouldRightOrder()
+    public void DequeueWithSamePriorityShouldInRightOrder()
     {
         var queue = new PriorityQueue<int>();
         queue.Enqueue(1, 14);

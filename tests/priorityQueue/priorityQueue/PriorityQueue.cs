@@ -1,7 +1,4 @@
-﻿using priorityQueue;
-using System.Diagnostics;
-
-namespace PriorityQueueLibrary;
+﻿namespace PriorityQueueLibrary;
 
 /// <summary>
 /// Priority queue implementation with O(1) for insert and O(n) for get value with max priority
@@ -37,7 +34,7 @@ public class PriorityQueue<T>
     /// <summary>
     /// Returns if queue is empty
     /// </summary>
-    public bool Empty { get => tail == null; }
+    public bool Empty => tail == null;
 
     private void DeleteNode(Node node)
     {
@@ -46,13 +43,13 @@ public class PriorityQueue<T>
             tail = tail.Next;
             return;
         }
-        var currentNode = tail ?? throw new ArgumentNullException();
+        var currentNode = tail ?? throw new InvalidOperationException();
         while (currentNode.Next != node)
         {
             currentNode = currentNode.Next;
             if (currentNode == null)
             {
-                throw new ArgumentNullException();
+                throw new InvalidOperationException();
             }
         }
         currentNode.Next = node.Next;
@@ -71,14 +68,14 @@ public class PriorityQueue<T>
         var nodeWithMaxPriority = tail;
         if (tail == null)
         {
-            throw new ArgumentNullException();
+            throw new InvalidOperationException();
         }
         var currentNode = tail.Next;
         while (currentNode != null)
         {
             if (nodeWithMaxPriority == null)
             {
-                throw new ArgumentNullException();
+                throw new InvalidOperationException();
             }
             if (currentNode.Priority >= nodeWithMaxPriority.Priority)
             {
@@ -88,7 +85,7 @@ public class PriorityQueue<T>
         }
         if (nodeWithMaxPriority == null)
         {
-            throw new ArgumentNullException();
+            throw new InvalidOperationException();
         }
         var value = nodeWithMaxPriority.Value;
         DeleteNode(nodeWithMaxPriority);
