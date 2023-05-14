@@ -18,7 +18,7 @@ namespace TrieLibrary;
 
 using System.Collections.Generic;
 
-// Trie data structure
+// An efficiently stored set of bytes
 public class Trie
 {
     private class TrieNode
@@ -131,25 +131,7 @@ public class Trie
 
     }
 
-    // Return how many word added to the trie starts with the passed prefix
-    public int HowManyStartsWithPrefix(List<byte> prefix)
-    {
-        if (prefix.Count == 0)
-        {
-            return Convert.ToInt32(isEmptyStringAdded);
-        }
-        var node = this.root;
-        foreach (var bt in prefix)
-        {
-            if (!node.Children.ContainsKey(bt))
-            {
-                return 0;
-            }
-            node = node.Children[bt];
-        }
-        return node.SequencesWithSamePrefix;
-    }
-
+    // Return the value by sequence
     public int Get(List<byte> sequence)
     {
         var node = this.root;
