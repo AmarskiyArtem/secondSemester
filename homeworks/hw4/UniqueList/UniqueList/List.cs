@@ -25,8 +25,8 @@ public class List
     {
         public ListElement(int value, ListElement? next)
         {
-            this.Value = value;
-            this.Next = next;
+            Value = value;
+            Next = next;
         }
         public int Value { get; set; }
         public ListElement? Next { get; set; }
@@ -45,7 +45,7 @@ public class List
     public void Push(int value)
     {
         var newHead = new ListElement(value, this.Head);
-        this.Head = newHead;
+        Head = newHead;
         Size++;
     }
 
@@ -63,7 +63,11 @@ public class List
         var currentListElement = Head;
         for (var i = 0; i < index; i++)
         {
-            currentListElement = currentListElement!.Next;
+            if (currentListElement is null)
+            {
+                throw new InvalidOperationException();
+            }
+            currentListElement = currentListElement.Next;
         }
 
         return currentListElement!.Value;
@@ -89,7 +93,11 @@ public class List
         var currentListElement = Head;
         for (var i = 0; i < index - 1; i++)
         {
-            currentListElement = currentListElement!.Next;
+            if (currentListElement is null)
+            {
+                throw new InvalidOperationException();
+            }
+            currentListElement = currentListElement.Next;
         }
 
         var newElement = new ListElement(value, currentListElement!.Next);
@@ -111,7 +119,11 @@ public class List
         var currentListElement = Head;
         for (var i = 0; i < index; i++)
         {
-            currentListElement = currentListElement!.Next;
+            if (currentListElement is null)
+            {
+                throw new InvalidOperationException();
+            }
+            currentListElement = currentListElement.Next;
         }
         currentListElement!.Value = value;
     }
@@ -135,9 +147,17 @@ public class List
         var currentListElement = Head;
         for (var i = 0; i < index - 1; i++)
         {
-            currentListElement = currentListElement!.Next;
+            if (currentListElement is null)
+            {
+                throw new InvalidOperationException();
+            }
+            currentListElement = currentListElement.Next;
         }
-        currentListElement!.Next = currentListElement.Next!.Next;
+        if (currentListElement is null || currentListElement.Next is null)
+        {
+            throw new InvalidOperationException();
+        }
+        currentListElement.Next = currentListElement.Next.Next;
         Size--;
     }
 }
