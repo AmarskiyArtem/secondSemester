@@ -52,17 +52,17 @@ public class Calculator : INotifyPropertyChanged
             case states.NumberIsTyping:
                 if (currentResult == "0" || currentResult == "Error") 
                 {
-                    currentResult = digit.ToString();
+                    CurrentResult = digit.ToString();
                 }
                 else
                 {
-                    currentResult += digit;
+                    CurrentResult += digit;
                 }
                 state = states.NumberIsTyping;
                 break;
             case states.OperationArePressed:
                 intermediateResult = currentResult;
-                currentResult = digit.ToString();
+                CurrentResult = digit.ToString();
                 state = states.NumberIsTyping;
                 break;
         }
@@ -78,9 +78,9 @@ public class Calculator : INotifyPropertyChanged
         switch (state)
         {
             case states.NumberIsTyping:
-                if (operation == ' ')
+                if (currentOperation == ' ')
                 {
-                    intermediateResult = currentResult;
+                    intermediateResult = CurrentResult;
                     currentOperation = operation;
                     state = states.OperationArePressed;
                 }
@@ -88,16 +88,16 @@ public class Calculator : INotifyPropertyChanged
                 {
                     try
                     {
-                        currentResult = compute().ToString();
+                        CurrentResult = compute().ToString();
                     }
                     catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
                     {
                         Clear();
-                        currentResult = "Error";
+                        CurrentResult = "Error";
                         state = states.SomethingWentWrong;
                         return;
                     }
-                    intermediateResult = currentResult;
+                    intermediateResult = CurrentResult;
                     currentOperation = operation;
                     state = states.OperationArePressed;
                 }
@@ -116,24 +116,26 @@ public class Calculator : INotifyPropertyChanged
         switch (currentOperation)
         {
             case '+':
-                return double.Parse(intermediateResult) + double.Parse(currentResult);
+                return double.Parse(intermediateResult) + double.Parse(CurrentResult);
             case '-':
-                return double.Parse(intermediateResult) - double.Parse(currentResult);
+                return double.Parse(intermediateResult) - double.Parse(CurrentResult);
             case '*':
-                return double.Parse(intermediateResult) - double.Parse(currentResult);
+            case '×':
+                return double.Parse(intermediateResult) - double.Parse(CurrentResult);
             case '/':
-                if (Math.Abs(double.Parse(currentResult)) < 0.001)
+            case '÷':
+                if (Math.Abs(double.Parse(CurrentResult)) < 0.001)
                 {
                     throw new DivideByZeroException();
                 }
-                return double.Parse(intermediateResult) / double.Parse(currentResult);
+                return double.Parse(intermediateResult) / double.Parse(CurrentResult);
             default: throw new ArgumentException();
         }
     }
 
     public void Clear()
     {
-        currentResult = "0";
+        CurrentResult = "0";
         intermediateResult = "0";
         currentOperation = ' ';
         state = states.NumberIsTyping;
@@ -153,11 +155,11 @@ public class Calculator : INotifyPropertyChanged
                 catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
                 {
                     Clear();
-                    currentResult = "Error";
+                    CurrentResult = "Error";
                     state = states.SomethingWentWrong;
                     return;
                 }
-                currentResult = result.ToString();
+                CurrentResult = result.ToString();
                 break;
             case states.SomethingWentWrong:
             case states.NumberIsTyping:
@@ -170,12 +172,12 @@ public class Calculator : INotifyPropertyChanged
                     catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
                     {
                         Clear();
-                        currentResult = "Error";
+                        CurrentResult = "Error";
                         state = states.SomethingWentWrong;
                         return;
                     }
 
-                    currentResult = result.ToString();
+                    CurrentResult = result.ToString();
                     currentOperation = ' ';
                     state = states.NumberIsTyping;
                 }
@@ -187,13 +189,13 @@ public class Calculator : INotifyPropertyChanged
     {
         if (state != states.SomethingWentWrong && currentResult != "0")
         {
-            if (currentResult[0] == '-')
+            if (CurrentResult[0] == '-')
             {
-                currentResult = currentResult[1..];
+                CurrentResult = CurrentResult[1..];
             }
             else
             {
-                currentResult = "-" + currentResult;
+                CurrentResult = "-" + CurrentResult;
             }
         }
     }
