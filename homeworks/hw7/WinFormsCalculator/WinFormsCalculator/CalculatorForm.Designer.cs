@@ -46,7 +46,7 @@ partial class CalculatorForm
         threeButton = new Button();
         additionButton = new Button();
         equalButton = new Button();
-        label1 = new Label();
+        result = new Label();
         tableLayoutPanel1.SuspendLayout();
         SuspendLayout();
         // 
@@ -54,10 +54,10 @@ partial class CalculatorForm
         // 
         tableLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         tableLayoutPanel1.ColumnCount = 4;
-        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.55752F));
-        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.44248F));
-        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 118F));
-        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 113F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+        tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
         tableLayoutPanel1.Controls.Add(clearButton, 0, 1);
         tableLayoutPanel1.Controls.Add(multiplicationButton, 3, 2);
         tableLayoutPanel1.Controls.Add(divisionButton, 3, 1);
@@ -75,19 +75,19 @@ partial class CalculatorForm
         tableLayoutPanel1.Controls.Add(threeButton, 2, 4);
         tableLayoutPanel1.Controls.Add(additionButton, 3, 4);
         tableLayoutPanel1.Controls.Add(equalButton, 3, 5);
-        tableLayoutPanel1.Controls.Add(label1, 0, 0);
+        tableLayoutPanel1.Controls.Add(result, 0, 0);
         tableLayoutPanel1.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
         tableLayoutPanel1.Location = new Point(0, 0);
         tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
         tableLayoutPanel1.Name = "tableLayoutPanel1";
         tableLayoutPanel1.RowCount = 6;
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 67.45283F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 32.54717F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 67F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 71F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 70F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 64F));
-        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 27F));
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 14F));
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 14F));
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 14F));
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 14F));
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 14F));
+        tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 14F));
         tableLayoutPanel1.Size = new Size(457, 485);
         tableLayoutPanel1.TabIndex = 0;
         // 
@@ -102,6 +102,7 @@ partial class CalculatorForm
         clearButton.Text = "C";
         clearButton.TextImageRelation = TextImageRelation.ImageAboveText;
         clearButton.UseVisualStyleBackColor = true;
+        clearButton.Click += ClearClick;
         // 
         // multiplicationButton
         // 
@@ -110,8 +111,9 @@ partial class CalculatorForm
         multiplicationButton.Name = "multiplicationButton";
         multiplicationButton.Size = new Size(107, 61);
         multiplicationButton.TabIndex = 4;
-        multiplicationButton.Text = "X";
+        multiplicationButton.Text = "x";
         multiplicationButton.UseVisualStyleBackColor = true;
+        multiplicationButton.Click += OperationClick;
         // 
         // divisionButton
         // 
@@ -122,6 +124,7 @@ partial class CalculatorForm
         divisionButton.TabIndex = 3;
         divisionButton.Text = "÷";
         divisionButton.UseVisualStyleBackColor = true;
+        divisionButton.Click += OperationClick;
         // 
         // sighButton
         // 
@@ -132,6 +135,7 @@ partial class CalculatorForm
         sighButton.TabIndex = 2;
         sighButton.Text = "+/-";
         sighButton.UseVisualStyleBackColor = true;
+        sighButton.Click += SignClick;
         // 
         // sevenButton
         // 
@@ -142,6 +146,7 @@ partial class CalculatorForm
         sevenButton.TabIndex = 5;
         sevenButton.Text = "7";
         sevenButton.UseVisualStyleBackColor = true;
+        sevenButton.Click += NumberClick;
         // 
         // eightButton
         // 
@@ -152,6 +157,7 @@ partial class CalculatorForm
         eightButton.TabIndex = 6;
         eightButton.Text = "8";
         eightButton.UseVisualStyleBackColor = true;
+        eightButton.Click += NumberClick;
         // 
         // nineButton
         // 
@@ -162,6 +168,7 @@ partial class CalculatorForm
         nineButton.TabIndex = 7;
         nineButton.Text = "9";
         nineButton.UseVisualStyleBackColor = true;
+        nineButton.Click += NumberClick;
         // 
         // fourButton
         // 
@@ -172,6 +179,7 @@ partial class CalculatorForm
         fourButton.TabIndex = 8;
         fourButton.Text = "4";
         fourButton.UseVisualStyleBackColor = true;
+        fourButton.Click += NumberClick;
         // 
         // fiveButton
         // 
@@ -182,6 +190,7 @@ partial class CalculatorForm
         fiveButton.TabIndex = 9;
         fiveButton.Text = "5";
         fiveButton.UseVisualStyleBackColor = true;
+        fiveButton.Click += NumberClick;
         // 
         // sixButton
         // 
@@ -192,6 +201,7 @@ partial class CalculatorForm
         sixButton.TabIndex = 10;
         sixButton.Text = "6";
         sixButton.UseVisualStyleBackColor = true;
+        sixButton.Click += NumberClick;
         // 
         // substructionButton
         // 
@@ -202,6 +212,7 @@ partial class CalculatorForm
         substructionButton.TabIndex = 11;
         substructionButton.Text = "-";
         substructionButton.UseVisualStyleBackColor = true;
+        substructionButton.Click += OperationClick;
         // 
         // zeroButton
         // 
@@ -213,6 +224,7 @@ partial class CalculatorForm
         zeroButton.TabIndex = 12;
         zeroButton.Text = "0";
         zeroButton.UseVisualStyleBackColor = true;
+        zeroButton.Click += NumberClick;
         // 
         // oneButton
         // 
@@ -223,6 +235,7 @@ partial class CalculatorForm
         oneButton.TabIndex = 13;
         oneButton.Text = "1";
         oneButton.UseVisualStyleBackColor = true;
+        oneButton.Click += NumberClick;
         // 
         // twoButton
         // 
@@ -233,6 +246,7 @@ partial class CalculatorForm
         twoButton.TabIndex = 14;
         twoButton.Text = "2";
         twoButton.UseVisualStyleBackColor = true;
+        twoButton.Click += NumberClick;
         // 
         // threeButton
         // 
@@ -243,6 +257,7 @@ partial class CalculatorForm
         threeButton.TabIndex = 15;
         threeButton.Text = "3";
         threeButton.UseVisualStyleBackColor = true;
+        threeButton.Click += NumberClick;
         // 
         // additionButton
         // 
@@ -253,6 +268,7 @@ partial class CalculatorForm
         additionButton.TabIndex = 16;
         additionButton.Text = "+";
         additionButton.UseVisualStyleBackColor = true;
+        additionButton.Click += OperationClick;
         // 
         // equalButton
         // 
@@ -263,17 +279,21 @@ partial class CalculatorForm
         equalButton.TabIndex = 17;
         equalButton.Text = "=";
         equalButton.UseVisualStyleBackColor = true;
+        equalButton.Click += EqualClick;
         // 
-        // label1
+        // result
         // 
-        label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        label1.AutoSize = true;
-        tableLayoutPanel1.SetColumnSpan(label1, 4);
-        label1.Location = new Point(3, 0);
-        label1.Name = "label1";
-        label1.Size = new Size(451, 143);
-        label1.TabIndex = 18;
-        label1.Text = "label1";
+        result.AutoSize = true;
+        tableLayoutPanel1.SetColumnSpan(result, 4);
+        result.Dock = DockStyle.Fill;
+        result.Location = new Point(3, 0);
+        result.Name = "result";
+        result.Size = new Size(451, 143);
+        result.TabIndex = 18;
+        result.Text = "0";
+        result.Font = new Font("Segoe UI", 30F, FontStyle.Regular, GraphicsUnit.Point);
+        result.TextAlign = ContentAlignment.BottomRight;
+
         // 
         // CalculatorForm
         // 
@@ -310,5 +330,5 @@ partial class CalculatorForm
     private Button threeButton;
     private Button additionButton;
     private Button equalButton;
-    private Label label1;
+    private Label result;
 }

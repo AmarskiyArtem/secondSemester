@@ -70,7 +70,7 @@ public class Calculator : INotifyPropertyChanged
 
     public void AddOperation(char operation)
     {
-        if (!"+-*/".Contains(operation))
+        if (!"+-*/x÷".Contains(operation))
         {
             throw new ArgumentException();
         }
