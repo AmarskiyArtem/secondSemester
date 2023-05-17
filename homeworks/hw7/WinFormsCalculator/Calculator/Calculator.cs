@@ -2,6 +2,9 @@
 
 using System.ComponentModel;
 
+/// <summary>
+/// Calculator that accepts an expression character by character and immediately calculates it
+/// </summary>
 public class Calculator : INotifyPropertyChanged
 {
     private enum states
@@ -15,6 +18,9 @@ public class Calculator : INotifyPropertyChanged
 
     private string currentResult = "0";
 
+    /// <summary>
+    /// String representation of the current value of the expression
+    /// </summary>
     public string CurrentResult
     {
         get
@@ -28,6 +34,7 @@ public class Calculator : INotifyPropertyChanged
         }
     }
 
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     private void notifyProperty(string propertyName = "")
@@ -39,6 +46,10 @@ public class Calculator : INotifyPropertyChanged
 
     private char currentOperation = ' ';
 
+    /// <summary>
+    /// Adds digit to expression
+    /// </summary>
+    /// <exception cref="ArgumentException"></exception>
     public void AddNumber(char digit)
     {
         if (!char.IsDigit(digit))
@@ -68,6 +79,10 @@ public class Calculator : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Adds/change pressed operation
+    /// </summary>
+    /// <exception cref="ArgumentException"></exception>
     public void AddOperation(char operation)
     {
         if (!"+-*/x÷".Contains(operation))
@@ -133,6 +148,9 @@ public class Calculator : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Clears expression
+    /// </summary>
     public void Clear()
     {
         CurrentResult = "0";
@@ -141,6 +159,9 @@ public class Calculator : INotifyPropertyChanged
         state = states.NumberIsTyping;
     }
 
+    /// <summary>
+    /// Calculate current expression
+    /// </summary>
     public void Calculate()
     {
         double result = 0;
@@ -185,6 +206,9 @@ public class Calculator : INotifyPropertyChanged
         }
     }
 
+    /// <summary>
+    /// Switches sing of current number
+    /// </summary>
     public void SwitchSign()
     {
         if (state != states.SomethingWentWrong && currentResult != "0")

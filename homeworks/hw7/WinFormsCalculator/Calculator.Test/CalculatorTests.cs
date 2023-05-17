@@ -44,7 +44,7 @@ public class CalculatorTests
     }
 
     [TestCase("4 + 3 - 6 * 2", "2")]
-    [TestCase("1 * 4 - 5 / 2", "-0,5")]
+    [TestCase("1 * 4 - 5 / 2", "-0.5")]
     public void SomeCalculationShouldRightAnswer(string expression, string expected)
     {
         addExpressionToCalc(expression);
