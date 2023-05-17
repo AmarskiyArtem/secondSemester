@@ -159,6 +159,43 @@ public class Calculator : INotifyPropertyChanged
                 }
                 currentResult = result.ToString();
                 break;
+            case states.SomethingWentWrong:
+            case states.NumberIsTyping:
+                if (currentOperation != ' ')
+                {
+                    try
+                    {
+                        result = compute();
+                    }
+                    catch (Exception e) when (e is ArgumentException || e is DivideByZeroException)
+                    {
+                        Clear();
+                        currentResult = "Error";
+                        state = states.SomethingWentWrong;
+                        return;
+                    }
+
+                    currentResult = result.ToString();
+                    currentOperation = ' ';
+                    state = states.NumberIsTyping;
+                }
+                break;
         }
     }
+
+    public void SwitchSign()
+    {
+        if (state != states.SomethingWentWrong && currentResult != "0")
+        {
+            if (currentResult[0] == '-')
+            {
+                currentResult = currentResult[1..];
+            }
+            else
+            {
+                currentResult = "-" + currentResult;
+            }
+        }
+    }
+
 }
