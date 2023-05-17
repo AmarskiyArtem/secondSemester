@@ -120,8 +120,8 @@ public class Calculator : INotifyPropertyChanged
             case '-':
                 return double.Parse(intermediateResult) - double.Parse(CurrentResult);
             case '*':
-            case '×':
-                return double.Parse(intermediateResult) - double.Parse(CurrentResult);
+            case 'x':
+                return double.Parse(intermediateResult) * double.Parse(CurrentResult);
             case '/':
             case '÷':
                 if (Math.Abs(double.Parse(CurrentResult)) < 0.001)
