@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "FindPair": {
-      "commandName": "Project",
-      "commandLineArgs": "4"
-    }
-  }
-}
