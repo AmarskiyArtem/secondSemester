@@ -16,6 +16,9 @@
 
 namespace BWTransform;
 
+/// <summary>
+/// Comparer for shifts of one byte array
+/// </summary>
 internal class ShiftsComparer : IComparer<int>
 {
     public ShiftsComparer(byte[] data)

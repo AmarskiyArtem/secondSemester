@@ -41,8 +41,6 @@ public static class BWT
         return (result, Array.IndexOf(shiftTable, originalString));
     }
 
-
-
     public static (byte[], int) FastDirectConversion(byte[] originalData)
     {
         var shifts = Enumerable.Range(0, originalData.Length).ToArray();
@@ -73,7 +71,7 @@ public static class BWT
         }
 
         // Sort symbols to get first column of original table
-        //countSortArray[i] to first position i-symbol in 1st column
+        // countSortArray[i] to first position i-symbol in 1st column
         var sum = 0;
         for (var i = 0; i < alphabetSize; ++i)
         {

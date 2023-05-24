@@ -22,7 +22,7 @@ if (args.Length < 2)
 }
 else
 {
-    if (args[1] == "--c")
+    if (args[1] == "--compress")
     {
         try
         {
@@ -37,7 +37,7 @@ else
             Console.WriteLine("File not found");
         }
     }
-    else if (args[1] == "--u")
+    else if (args[1] == "-u")
     {
         try
         {

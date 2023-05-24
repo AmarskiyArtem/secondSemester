@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "LZW": {
-      "commandName": "Project",
-      "commandLineArgs": "D:\\tests\\HarryPotter.txt.zipped --u"
-    }
-  }
-}

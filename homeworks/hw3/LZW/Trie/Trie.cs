@@ -28,6 +28,7 @@ public class Trie
             Value = value;
             Children = new();
         }
+
         public Dictionary<byte, TrieNode> Children { get; set; } = new();
 
         public bool IsTerminate { get; set; }
@@ -128,7 +129,6 @@ public class Trie
         node.IsTerminate = false;
         this.Size--;
         return true;
-
     }
 
     // Return the value by sequence

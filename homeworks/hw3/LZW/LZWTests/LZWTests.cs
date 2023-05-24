@@ -29,7 +29,7 @@ public class Tests
     public void EncodeAndDecodeShouldSame(string path)
     {
         var data = File.ReadAllBytes(path);
-        byte[] dataCopy = new byte[data.Length];
+        var dataCopy = new byte[data.Length];
         Array.Copy(data, dataCopy, data.Length);
         data = LZWEncoder.Encode(data, true);
         data = LZWDecoder.Decode(data);

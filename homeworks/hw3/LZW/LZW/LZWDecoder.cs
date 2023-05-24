@@ -110,6 +110,7 @@ public static class LZWDecoder
         }
 
     }
+
     const int maxAmountOfRecords = 65536;
 
     /// <summary>
@@ -131,7 +132,7 @@ public static class LZWDecoder
         var output = new List<byte>();
         var dictionary = FillDictBySingleByteSequences();
         var numbers = GetNumbers(data[4..]);
-        var dictionaryPoiner = 256;
+        var dictionaryPointer = 256;
         var dictionarySize = 256;
         var sequence = new List<byte>();
         for (var i = 0; i < numbers.Count; i++)
@@ -140,19 +141,19 @@ public static class LZWDecoder
             {
                 dictionary = FillDictBySingleByteSequences();
                 dictionarySize = 256;
-                dictionaryPoiner = 256;
+                dictionaryPointer = 256;
             }
             if (dictionary.ContainsKey(numbers[i]))
             {
                 if (dictionarySize != 256)
                 {
-                    while (dictionary.ContainsKey(dictionaryPoiner))
+                    while (dictionary.ContainsKey(dictionaryPointer))
                     {
-                        dictionaryPoiner++;
+                        dictionaryPointer++;
                     }
                     sequence = new List<byte>(dictionary[numbers[i - 1]]) { dictionary[numbers[i]][0] };
-                    dictionary.Add(dictionaryPoiner, sequence);
-                    ++dictionaryPoiner;
+                    dictionary.Add(dictionaryPointer, sequence);
+                    ++dictionaryPointer;
                 }
                 output.AddRange(dictionary[numbers[i]]);
             }

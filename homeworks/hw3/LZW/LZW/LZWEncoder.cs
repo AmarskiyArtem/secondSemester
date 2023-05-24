@@ -80,6 +80,7 @@ public static class LZWEncoder
             return bits;
         }
     }
+
     private static Trie FillTrieBySingleByteSequences()
     {
         var trie = new Trie();
