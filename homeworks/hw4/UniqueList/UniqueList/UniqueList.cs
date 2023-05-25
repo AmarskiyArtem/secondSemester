@@ -21,22 +21,7 @@ namespace UniqueListLibrary;
 /// </summary>
 public class UniqueList : List
 {
-    private bool Contains(int value)
-    {
-        var currentNode = Head;
-        while (currentNode != null)
-        {
-            if (currentNode.Value == value)
-            {
-                return true;
-            }
-            currentNode = currentNode.Next;
-        }
-        return false;
-    }
-
     /// <inheritdoc/>
-    /// <exception cref="ElementAlreadyExistException"></exception>
     public new void Push(int value)
     {
         if (Contains(value))
@@ -47,7 +32,6 @@ public class UniqueList : List
     }
 
     /// <inheritdoc/>
-    /// <exception cref="ElementAlreadyExistException"></exception>
     public new void Insert(int value, int index)
     {
         if (Contains(value)) 
@@ -58,7 +42,6 @@ public class UniqueList : List
     }
 
     /// <inheritdoc/>
-    /// <exception cref="ElementAlreadyExistException"></exception>
     public new void ChangeValueByIndex(int value, int index)
     {
         if (!Contains(value))

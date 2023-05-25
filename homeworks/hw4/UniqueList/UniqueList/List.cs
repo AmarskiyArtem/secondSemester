@@ -21,7 +21,7 @@ namespace UniqueListLibrary;
 /// </summary>
 public class List
 {
-    protected class ListElement
+    private class ListElement
     {
         public ListElement(int value, ListElement? next)
         {
@@ -37,22 +37,21 @@ public class List
     /// </summary>
     public int Size { get; private set; }
 
-    protected ListElement? Head;
+    private ListElement? head;
 
     /// <summary>
     /// Add new element with given value to the head of list
     /// </summary>
     public void Push(int value)
     {
-        var newHead = new ListElement(value, this.Head);
-        Head = newHead;
+        var newHead = new ListElement(value, head);
+        head = newHead;
         Size++;
     }
 
     /// <summary>
     /// Returns value that lies at given index
     /// </summary>
-    /// <exception cref="IndexOutOfRangeException"></exception>
     public int Get(int index)
     {
         if (index >= Size || index < 0)
@@ -60,23 +59,13 @@ public class List
             throw new IndexOutOfRangeException();
         }
 
-        var currentListElement = Head;
-        for (var i = 0; i < index; i++)
-        {
-            if (currentListElement is null)
-            {
-                throw new InvalidOperationException();
-            }
-            currentListElement = currentListElement.Next;
-        }
-
-        return currentListElement!.Value;
+        var currentListElement = getByIndex(index);
+        return currentListElement.Value;
     }
     
     /// <summary>
     /// Insert new element with given value before element with given index
     /// </summary>
-    /// <exception cref="IndexOutOfRangeException"></exception>
     public void Insert(int value, int index)
     {
         if (index > Size || index < 0)
@@ -90,17 +79,8 @@ public class List
             return;
         }
 
-        var currentListElement = Head;
-        for (var i = 0; i < index - 1; i++)
-        {
-            if (currentListElement is null)
-            {
-                throw new InvalidOperationException();
-            }
-            currentListElement = currentListElement.Next;
-        }
-
-        var newElement = new ListElement(value, currentListElement!.Next);
+        var currentListElement = getByIndex(index - 1);
+        var newElement = new ListElement(value, currentListElement.Next);
         currentListElement.Next = newElement;
         Size++;
     }
@@ -108,30 +88,19 @@ public class List
     /// <summary>
     /// Changes the value for given index
     /// </summary>
-    /// <exception cref="IndexOutOfRangeException"></exception>
     public void ChangeValueByIndex(int value, int index)
     {
         if (index >= Size || index < 0)
         {
             throw new IndexOutOfRangeException();
         }
-
-        var currentListElement = Head;
-        for (var i = 0; i < index; i++)
-        {
-            if (currentListElement is null)
-            {
-                throw new InvalidOperationException();
-            }
-            currentListElement = currentListElement.Next;
-        }
-        currentListElement!.Value = value;
+        var currentListElement = getByIndex(index);
+        currentListElement.Value = value;
     }
 
     /// <summary>
     /// Remove element with given index from list
     /// </summary>
-    /// <exception cref="IndexOutOfRangeException"></exception>
     public void Remove(int index) 
     {
         if (index >= Size || index < 0)
@@ -141,11 +110,39 @@ public class List
 
         if (index == 0)
         {
-            Head = Head!.Next;
+            head = head!.Next;
         }
 
-        var currentListElement = Head;
-        for (var i = 0; i < index - 1; i++)
+        var currentListElement = getByIndex(index - 1);        
+        if (currentListElement.Next is null)
+        {
+            throw new InvalidOperationException();
+        }
+        currentListElement.Next = currentListElement.Next.Next;
+        Size--;
+    }
+
+    /// <summary>
+    /// Checks whether the value is contained in the list
+    /// </summary>
+    public bool Contains(int value)
+    {
+        var currentNode = head;
+        while (currentNode != null)
+        {
+            if (currentNode.Value == value)
+            {
+                return true;
+            }
+            currentNode = currentNode.Next;
+        }
+        return false;
+    }
+
+    private ListElement getByIndex(int index)
+    {
+        var currentListElement = head;
+        for (var i = 0; i < index; i++)
         {
             if (currentListElement is null)
             {
@@ -153,11 +150,10 @@ public class List
             }
             currentListElement = currentListElement.Next;
         }
-        if (currentListElement is null || currentListElement.Next is null)
+        if (currentListElement is null) 
         {
             throw new InvalidOperationException();
         }
-        currentListElement.Next = currentListElement.Next.Next;
-        Size--;
+        return currentListElement;
     }
 }
