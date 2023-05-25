@@ -42,5 +42,4 @@ internal class Division : Operation
         }
         return LeftChild.Calculate() / RightChild.Calculate();
     }
-        
 }

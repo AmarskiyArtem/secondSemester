@@ -29,36 +29,30 @@ public class TreeTests
     }
 
     [Test]
-    public void DivisionByZeroShouldException()
+    public void DivisionByZeroShouldThrowException()
     {
         var tree = new ParsingTree("+( / 1 0) 3");
         Assert.Throws<DivideByZeroException>(() => tree.CalculateTree());
     }
 
     [Test]
-    public void ExtraOperationsShouldException()
-    {
-        Assert.Throws<ArgumentException>(() => new ParsingTree("(- +(* 61 3) 4)"));
-    }
+    public void ExtraOperationsShouldThrowException()
+        => Assert.Throws<ArgumentException>(() => new ParsingTree("(- +(* 61 3) 4)"));
+    
 
     [Test]
-    public void ExtraOperandsShouldException()
-    {
-        Assert.Throws<ArgumentException>(() => new ParsingTree("+ 45 43 34"));
-    }
+    public void ExtraOperandsShouldThrowException()
+        => Assert.Throws<ArgumentException>(() => new ParsingTree("+ 45 43 34"));
+    
 
     [Test]
-    public void EmptyStringShouldException()
-    {
-        var e = Assert.Throws<ArgumentException>(() => new ParsingTree(String.Empty));
-        Assert.That(e.Message, Is.EqualTo("String is empty."));
-    }
+    public void EmptyStringShouldThrowException()
+        => Assert.Throws<ArgumentException>(() => new ParsingTree(String.Empty));
 
     [Test]
-    public void NullStringShouldException()
-    {
-        var e = Assert.Throws<ArgumentNullException>(() => new ParsingTree(null));
-    }
+    public void NullStringShouldThrowException()
+        => Assert.Throws<ArgumentNullException>(() => new ParsingTree(null));
+    
 
     [Test]
     public void PrintTreeShouldRightString()

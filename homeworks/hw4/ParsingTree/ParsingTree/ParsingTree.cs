@@ -24,20 +24,10 @@ public class ParsingTree
     /// <param name="expression"> math expression</param>
     /// <exception cref="ArgumentException">if string is empty or incorrect math expression</exception>
     /// <exception cref="ArgumentNullException"></exception>
-    public ParsingTree(string expression)
+    public ParsingTree(string? expression)
     {
-        if (expression == null)
-        {
-
-            throw new ArgumentNullException();
-        }
-
-        if (expression == String.Empty)
-        {
-            throw new ArgumentException("String is empty.");
-        }
+        ArgumentNullException.ThrowIfNullOrEmpty(expression);
         FillTree(expression);
-
         if (root is null) 
         {
             throw new InvalidOperationException();

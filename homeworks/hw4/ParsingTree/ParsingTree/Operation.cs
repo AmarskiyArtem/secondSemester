@@ -21,8 +21,14 @@ namespace ParsingTreeLibrary;
 /// </summary>
 internal abstract class Operation : INode
 {
+    /// <summary>
+    /// Left subtree
+    /// </summary>
     public INode? LeftChild { get; set; }
 
+    /// <summary>
+    /// Right subtreeS
+    /// </summary>
     public INode? RightChild { get; set; }
 
     /// <inheritdoc/>

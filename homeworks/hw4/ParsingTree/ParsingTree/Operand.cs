@@ -30,9 +30,7 @@ internal class Operand : INode
 
     /// <inheritdoc/>
     public void Print()
-    {
-        Console.Write($"{Value} ");
-    }
+        => Console.Write($"{Value} ");
 
     /// <inheritdoc/>
     public double Calculate()
