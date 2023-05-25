@@ -64,7 +64,7 @@ public class ListsTests
     public void InsertToInvalidIndexShouldException(UniqueListLibrary.List list)
     {
         FillList(list);
-        Assert.Throws<IndexOutOfRangeException> (() => list.Insert(0, -1));
+        Assert.Throws<IndexOutOfRangeException>(() => list.Insert(0, -1));
         Assert.Throws<IndexOutOfRangeException>(() => list.Insert(0, 7));
     }
 
