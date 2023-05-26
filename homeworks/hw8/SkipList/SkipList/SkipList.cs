@@ -2,6 +2,9 @@
 
 using System.Collections;
 
+/// <summary>
+/// Data structure with logarithmic complexity for main operations
+/// </summary>
 public class SkipList<T> : IList<T>
     where T : IComparable
 {
@@ -9,11 +12,11 @@ public class SkipList<T> : IList<T>
     static readonly int maxLevel = 24;
     static readonly Random random = new();
 
-    internal int version = 0;
-    internal Node head = new(default, maxLevel);
-    private int currentMaxLevel = 0;
+    private int version = 0;
+    private Node head = new(default, maxLevel);
+    private int currentMaxLevel = 1;
 
-    internal class Node
+    private class Node
     {
         public Node(T? value, int level)
         {
@@ -23,9 +26,9 @@ public class SkipList<T> : IList<T>
         public T? Value { get; } 
         public Node[] Next { get; set; }
     }
-    
 
-    public T this[int index] 
+    ///<inheritdoc/>
+    public T this[int index]
     {
         get
         {
@@ -44,14 +47,16 @@ public class SkipList<T> : IList<T>
             }
             return currentNode.Value;
         }
-        set => throw new NotSupportedException("//TODO");
+        set => throw new NotSupportedException("Skip list does not support insertion by index");
     }
 
+    ///<inheritdoc/>
     public int Count { get; private set; }
 
-
+    ///<inheritdoc/>
     bool ICollection<T>.IsReadOnly => false;
 
+    ///<inheritdoc/>
     public void Add(T value)
     {
         var newNodeLevel = RandomLevel();
@@ -77,15 +82,16 @@ public class SkipList<T> : IList<T>
         version++;
     }
 
+    ///<inheritdoc/>
     public void Clear()
     {
         currentMaxLevel = 1;
-
         head = new(default, maxLevel);
         version++;
         Count = 0;
     }
 
+    ///<inheritdoc/>
     public bool Contains(T item)
     {
         var currentNode = head;
@@ -108,26 +114,31 @@ public class SkipList<T> : IList<T>
         return false;
     }
 
+    ///<inheritdoc/>
     public void CopyTo(T[] array, int arrayIndex)
     {
         if (arrayIndex >= Count || array.Length < Count - arrayIndex)
         {
             throw new ArgumentOutOfRangeException();
         }
-
         var currentNode = head;
         for (var i = 0; i < arrayIndex; ++i)
         {
             currentNode = currentNode.Next[0];
         }
-
         for (var i = 0; i < array.Length; ++i)
         {
-            array[i] = currentNode.Next[0].Value!;
+            var temp = currentNode.Next[0].Value;
+            if (temp is null)
+            {
+                throw new InvalidOperationException();
+            }
+            array[i] = temp;
             currentNode = currentNode.Next[0];
         }
     }
 
+    ///<inheritdoc/>
     public int IndexOf(T value)
     {
         var counter = 0;
@@ -144,11 +155,15 @@ public class SkipList<T> : IList<T>
         return -1;
     }
 
+    /// <summary>
+    /// Not supported operation
+    /// </summary>
     public void Insert(int index, T item)
     {
-        throw new NotSupportedException("//TODO");
+        throw new NotSupportedException("Skip list does not support insertion by index");
     }
 
+    ///<inheritdoc/>
     public bool Remove(T value)
     {
         var success = false;
@@ -178,15 +193,17 @@ public class SkipList<T> : IList<T>
         return success;
     }
 
+    ///<inheritdoc/>
     public void RemoveAt(int index)
         => Remove(this[index]);
 
-    public struct Enumerator : IEnumerator<T>, IEnumerator
+    ///<inheritdoc/>
+    public struct Enumerator : IEnumerator<T>
     {
         private readonly int version;
-        SkipList<T> skipList;
-        Node currentNode;
-        T? currentValue;
+        private SkipList<T> skipList;
+        private Node currentNode;
+        private T? currentValue;
 
         internal Enumerator(SkipList<T> skipList)
         {
@@ -196,6 +213,7 @@ public class SkipList<T> : IList<T>
             currentValue = default;
         }
 
+        ///<inheritdoc/>
         public T Current => currentValue!;
 
         object? IEnumerator.Current
@@ -210,10 +228,12 @@ public class SkipList<T> : IList<T>
             }
         }
 
+        ///<inheritdoc/>
         public void Dispose()
         {
         }
 
+        ///<inheritdoc/>
         public bool MoveNext()
         {
             if (version != skipList.version)
@@ -226,19 +246,18 @@ public class SkipList<T> : IList<T>
                 currentValue = default;
                 return false;
             }
-
             currentNode = currentNode.Next[0];
             currentValue = currentNode.Value;
             return true;
         }
 
+        ///<inheritdoc/>
         public void Reset()
         {
             if (version != skipList.version)
             {
                 throw new InvalidOperationException();
             }
-
             currentNode = skipList.head;
             currentValue = default;
         }
@@ -255,6 +274,7 @@ public class SkipList<T> : IList<T>
         return resultLevel;
     }
 
+    ///<inheritdoc/>
     public Enumerator GetEnumerator()
         => new(this);
 
