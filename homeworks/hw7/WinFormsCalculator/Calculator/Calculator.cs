@@ -7,14 +7,14 @@ using System.ComponentModel;
 /// </summary>
 public class Calculator : INotifyPropertyChanged
 {
-    private enum states
+    private enum States
     {
         NumberIsTyping,
         OperationArePressed,
         SomethingWentWrong,
     }
 
-    private states state = states.NumberIsTyping;
+    private States state = States.NumberIsTyping;
 
     private string currentResult = "0";
 
@@ -59,8 +59,8 @@ public class Calculator : INotifyPropertyChanged
 
         switch (state)
         {
-            case states.SomethingWentWrong:
-            case states.NumberIsTyping:
+            case States.SomethingWentWrong:
+            case States.NumberIsTyping:
                 if (currentResult == "0" || currentResult == "Error") 
                 {
                     CurrentResult = digit.ToString();
@@ -69,12 +69,12 @@ public class Calculator : INotifyPropertyChanged
                 {
                     CurrentResult += digit;
                 }
-                state = states.NumberIsTyping;
+                state = States.NumberIsTyping;
                 break;
-            case states.OperationArePressed:
+            case States.OperationArePressed:
                 intermediateResult = currentResult;
                 CurrentResult = digit.ToString();
-                state = states.NumberIsTyping;
+                state = States.NumberIsTyping;
                 break;
         }
     }
@@ -92,12 +92,12 @@ public class Calculator : INotifyPropertyChanged
 
         switch (state)
         {
-            case states.NumberIsTyping:
+            case States.NumberIsTyping:
                 if (currentOperation == ' ')
                 {
                     intermediateResult = CurrentResult;
                     currentOperation = operation;
-                    state = states.OperationArePressed;
+                    state = States.OperationArePressed;
                 }
                 else
                 {
@@ -109,18 +109,18 @@ public class Calculator : INotifyPropertyChanged
                     {
                         Clear();
                         CurrentResult = "Error";
-                        state = states.SomethingWentWrong;
+                        state = States.SomethingWentWrong;
                         return;
                     }
                     intermediateResult = CurrentResult;
                     currentOperation = operation;
-                    state = states.OperationArePressed;
+                    state = States.OperationArePressed;
                 }
                 break;
-            case states.OperationArePressed:
+            case States.OperationArePressed:
                 currentOperation = operation;
                 break;
-            case states.SomethingWentWrong:
+            case States.SomethingWentWrong:
                 break;
 
         }
@@ -156,7 +156,7 @@ public class Calculator : INotifyPropertyChanged
         CurrentResult = "0";
         intermediateResult = "0";
         currentOperation = ' ';
-        state = states.NumberIsTyping;
+        state = States.NumberIsTyping;
     }
 
     /// <summary>
@@ -168,7 +168,7 @@ public class Calculator : INotifyPropertyChanged
 
         switch (state)
         {
-            case states.OperationArePressed:
+            case States.OperationArePressed:
                 try
                 {
                     result = compute();
@@ -177,13 +177,13 @@ public class Calculator : INotifyPropertyChanged
                 {
                     Clear();
                     CurrentResult = "Error";
-                    state = states.SomethingWentWrong;
+                    state = States.SomethingWentWrong;
                     return;
                 }
                 CurrentResult = result.ToString();
                 break;
-            case states.SomethingWentWrong:
-            case states.NumberIsTyping:
+            case States.SomethingWentWrong:
+            case States.NumberIsTyping:
                 if (currentOperation != ' ')
                 {
                     try
@@ -194,13 +194,13 @@ public class Calculator : INotifyPropertyChanged
                     {
                         Clear();
                         CurrentResult = "Error";
-                        state = states.SomethingWentWrong;
+                        state = States.SomethingWentWrong;
                         return;
                     }
 
                     CurrentResult = result.ToString();
                     currentOperation = ' ';
-                    state = states.NumberIsTyping;
+                    state = States.NumberIsTyping;
                 }
                 break;
         }
@@ -211,7 +211,7 @@ public class Calculator : INotifyPropertyChanged
     /// </summary>
     public void SwitchSign()
     {
-        if (state != states.SomethingWentWrong && currentResult != "0")
+        if (state != States.SomethingWentWrong && currentResult != "0")
         {
             if (CurrentResult[0] == '-')
             {
