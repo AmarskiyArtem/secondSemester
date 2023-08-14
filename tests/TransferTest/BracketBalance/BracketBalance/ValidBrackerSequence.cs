@@ -20,11 +20,9 @@ public static class ValidBrackerSequence
                 }
 
                 var openBracket = stack.Top();
-                stack.Pop();
-
-                if ((bracket == ')' && openBracket != '(') ||
-                    (bracket == ']' && openBracket != '[') ||
-                    (bracket == '>' && openBracket != '<'))
+                if ((bracket == ')' && openBracket == '(') ||
+                    (bracket == ']' && openBracket == '[') ||
+                    (bracket == '>' && openBracket == '<'))
                 {
                     stack.Pop();
                 }
