@@ -29,7 +29,7 @@ public class MostCommonTests
     [Test]
     public void AllElementsHaveTheSameFrequencyShouldFirst()
     {
-        var input = new List<int> { 1, 1, 3, 3, 4, 4, 5, 5 };
+        var input = new List<int> { 1, 3, 1, 3, 4, 4, 5, 5 };
         var mostCommon = MostCommon.GetMostCommonElement(input);
         Assert.That(mostCommon, Is.EqualTo(1));
     }
