@@ -14,7 +14,7 @@ public class StackTests
     public void PushAndTopShouldSameValue()
     {
         stack.Push(1);
-        Assert.That(stack.Top, Is.EqualTo(1));
+        Assert.That(stack.Top(), Is.EqualTo(1));
     }
 
     [Test]

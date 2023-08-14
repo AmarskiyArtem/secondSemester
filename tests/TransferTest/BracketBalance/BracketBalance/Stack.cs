@@ -1,34 +1,78 @@
 ﻿namespace BracketBalance;
 
-using System.Collections.Generic;
 
+/// <summary>
+/// Stack data structure
+/// </summary>
 public class Stack<T>
 {
+
+    private int topIndex = -1;
+
+    private int currentArraySize = 2;
+
+    private T[] stack;
+
+    /// <summary>
+    /// Initializes a new instance of the Stack class.
+    /// </summary>
     public Stack()
-        => this.data = new();
-
-    private readonly List<T> data;
-    public void Push(T value)
-        => this.data.Insert(0, value);
-
-    public void Pop()
     {
-        if (IsEmpty())
-        {
-            throw new InvalidOperationException("Stack is empty.");
-        }
-        this.data.RemoveAt(0);
+        this.stack = new T[this.currentArraySize];
     }
 
+
+    private void ResizeStack()
+    {
+        currentArraySize *= 2;
+
+        var tempArray = new T[currentArraySize];
+        stack.CopyTo(tempArray, 0);
+        stack = tempArray;
+    }
+
+    /// <summary>
+    /// Adds new element to the stack
+    /// </summary>
+    public void Push(T newElement)
+    {
+        ++topIndex;
+
+        if (topIndex == currentArraySize)
+        {
+            ResizeStack();
+        }
+
+        stack[topIndex] = newElement;
+    }
+
+
+    public bool IsEmpty() 
+        => topIndex == -1;
+
+    /// <summary>
+    /// Returns element from top of the stack
+    /// </summary>
     public T Top()
     {
         if (IsEmpty())
         {
-            throw new InvalidOperationException("Stack is empty.");
+            throw new InvalidOperationException("Can't to Top() from empty stack");
         }
-        return this.data[0];
+
+        return stack[topIndex];
     }
 
-    public bool IsEmpty()
-        => this.data.Count == 0;
+    /// <summary>
+    /// Delete element from the top of the stack
+    /// </summary>
+    public void Pop()
+    {
+        if (IsEmpty())
+        {
+            throw new InvalidOperationException("Can't to Pop() from empty stack");
+        }
+
+        --topIndex;
+    }
 }
