@@ -88,7 +88,7 @@
 
 Если построить такую таблицу невозможно (то есть сеть изначально была не связной), программа должна вывести в поток ошибок (обратите внимание, не в файл и не совсем на консоль) сообщение, что сеть не связна, и завершить работу с ненулевым кодом возврата. Пути до входного и выходного файлов должны приниматься в качестве параметров.
 
-[Решение](https://github.com/AmarskiyArtem/secondSemester/tree/main/homeworks/hw4/UniqueList)
+[Решение](https://github.com/AmarskiyArtem/secondSemester/tree/main/homeworks/hw5/Routers)
 
 ### Homework 6
 #### Task 1 `Map, Filter, Fold`
@@ -119,6 +119,7 @@
 * разобраться, что за свойство IsReadOnly;
 * разобраться с IComparable<T>;
 * можно использовать System.Collections.Generic.List<T> как пример.
+* [Решение](https://github.com/AmarskiyArtem/secondSemester/tree/main/homeworks/hw8/SkipList)
 
 При этом, как обычно, нужны юнит-тесты, в которых надо не забыть проверить, что по списку можно ходить foreach.
   
